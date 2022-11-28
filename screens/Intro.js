@@ -17,13 +17,13 @@ const Intro = () => {
       />
       <Pressable/>
       <Pressable
-        style={styles.groupPressable}
+        style={styles.groupPressable1}
         onPress={() => navigation.navigate("WelcomeLoginHouseOwner")}
       >
       <Image
-        style={styles.groupPressable1}
+        style={styles.icon2}
         resizeMode="cover"
-        source={require("../assets/intro/group8.png")}
+        source={require("../assets/intro/Group8.png")}
       />
       </Pressable>
       <Text style={styles.studentText}>student</Text>
@@ -40,19 +40,13 @@ const Intro = () => {
       </Pressable>
       <Text style={styles.helloThisOurFirstApplicati}>
         <Text style={styles.helloThisOurContainer}>
-          <Text
-            style={styles.helloThisOur}
-          >{`Hello this our first application to `}</Text>
+       
           <Text
             style={styles.helpStudentsFor}
-          >{`help students for a better `}</Text>
-          <Text style={styles.experinceInTheir}>
-            experince in their university
-          </Text>
-          <Text style={styles.lifeAndProvide}>
-            {" "}
-            life and provide them with a interface for renting
-          </Text>
+          >Hello this our first application to
+           help students for a better experince in their university life and provide them with a interface for renting</Text>
+         
+         
         </Text>
       </Text>
       <Image
@@ -86,9 +80,19 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 480,
     left: 223,
-    width: 141,
+    width: 221,
     height: 136,
   },
+  groupPressable1: {
+    position: "absolute",
+    left: "8.62%",
+    top: "56.31%",
+    right: "57.18%",
+    bottom: "27.62%",
+    width: "38.21%",
+    height: "16.07%",
+  },
+  
   studentText: {
     position: "absolute",
     top: 630,
@@ -144,8 +148,8 @@ const styles = StyleSheet.create({
     marginBlockEnd: 0,
   },
   helpStudentsFor: {
-    marginBlockStart: 0,
-    marginBlockEnd: 0,
+    marginBlockStart: 10,
+    marginBlockEnd: 20,
   },
   experinceInTheir: {
     marginBlockStart: 0,
@@ -161,13 +165,12 @@ const styles = StyleSheet.create({
   },
   helloThisOurFirstApplicati: {
     position: "absolute",
-    top: 242,
+    top: 200,
     left: 58,
-    fontSize: 16,
+    fontSize: 10,
     letterSpacing: -0.41,
     lineHeight: 22,
     fontWeight: "600",
-    fontFamily: "Poppins",
     color: "#000",
     textAlign: "center",
     display: "flex",
@@ -189,15 +192,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     maxHeight: "100%",
   },
-  groupPressable1: {
-    position: "absolute",
-    left: "4.62%",
-    top: "56.31%",
-    right: "57.18%",
-    bottom: "27.62%",
-    width: "38.21%",
-    height: "16.07%",
-  },
   introPressable: {
     position: "relative",
     borderRadius: 50,
@@ -207,6 +201,13 @@ const styles = StyleSheet.create({
     height: 852,
     overflow: "hidden",
   },
+  icon2: {
+    height: "120%",
+    width: "100%",
+    maxWidth: "100%",
+    overflow: "hidden",
+    left: 180,
+  }
 });
 
 export default Intro;

@@ -1,77 +1,41 @@
 import * as React from "react";
-import { Image, StyleSheet, Pressable, View, Text } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Pressable,
+  View,
+  Text,
+  ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const HomePageStudent = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.homePageStudent}>
-      <Pressable
-        style={styles.ellipsePressable}
-        onPress={() => navigation.navigate("ProfileView")}
-      >
+    <ScrollView>
+      <View style={styles.homePageStudent}>
+        <Pressable
+          style={styles.ellipsePressable}
+          onPress={() => navigation.navigate("ProfileView")}
+        >
+          <Image
+            style={styles.icon}
+            resizeMode="cover"
+            source={require("../assets/HomeScreen/ellipse17.png")}
+          />
+        </Pressable>
+        <View style={styles.lineView} />
+        <View style={styles.rectangleView} />
         <Image
-          style={styles.icon}
+          style={styles.images1Icon}
           resizeMode="cover"
-          source={require("../assets/HomeScreen/ellipse17.png")}
+          source={require("../assets/HomeScreen/images2.png")}
         />
-      </Pressable>
-      <Image
-        style={styles.iconsaxLinearhome}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/iconsHome.png")}
-      />
-      <Image
-        style={styles.iconsaxLinearmessage}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/iconsMessage.png")}
-      />
-      <Image
-        style={styles.iconsaxLinearblogger}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/iconsBlog.png")}
-      />
-      <View style={styles.lineView} />
-      <View style={styles.rectangleView} />
-      <Text style={styles.singleRoomText}>single room</Text>
-      <Text style={styles.tNDText}>100 TND</Text>
-      <View style={styles.rectangleView1} />
-      <Image
-        style={styles.images2Icon}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/images2.png")}
-      />
-      <Image
-        style={styles.images1Icon}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/images2.png")}
-      />
-      <View style={styles.rectangleView2} />
-      <Image
-        style={styles.images3Icon}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/images2.png")}
-      />
-      <View style={styles.rectangleView3} />
-      <Image
-        style={styles.images4Icon}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/images2.png")}
-      />
-      <View style={styles.rectangleView4} />
-      <Image
-        style={styles.images5Icon}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/images2.png")}
-      />
-      <View style={styles.rectangleView5} />
-      <Image
-        style={styles.images6Icon}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/images2.png")}
-      />
-    </View>
+        <Text style={styles.singleRoomText}>single room</Text>
+        <Text style={styles.tNDText}>100 TND</Text>
+       </View>
+    </ScrollView>
   );
 };
 
@@ -89,7 +53,7 @@ const styles = StyleSheet.create({
   },
   iconsaxLinearhome: {
     position: "absolute",
-    top: 780,
+    top: 500,
     left: 49,
     width: 43,
     height: 43,
@@ -113,13 +77,13 @@ const styles = StyleSheet.create({
   },
   lineView: {
     position: "absolute",
-    top: 759.5,
+    top: 909.5,
     left: -0.5,
     borderStyle: "solid",
-    borderColor: "#000",
+    borderColor: "#fff",
     borderTopWidth: 1,
     width: 394,
-    height: 1,
+    height: 10,
   },
   rectangleView: {
     position: "absolute",
@@ -135,7 +99,7 @@ const styles = StyleSheet.create({
     top: 340,
     left: 36,
     fontSize: 11,
-    fontFamily: "Inter",
+
     color: "#000",
     textAlign: "left",
   },
@@ -144,7 +108,6 @@ const styles = StyleSheet.create({
     top: 340,
     left: 126,
     fontSize: 11,
-    fontFamily: "Inter",
     color: "#000",
     textAlign: "left",
     width: 49,

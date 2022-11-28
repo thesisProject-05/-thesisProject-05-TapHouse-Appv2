@@ -74,9 +74,9 @@ const WelcomeLoginStudent = () => {
           style={styles.dontHaveAnAccount}
         >{`Don’t have an account? `}</Text>
       </View>
-      <View style={styles.lineView} />
-      <View style={styles.lineView1} />
-      <Text style={styles.orText}>Or</Text>
+      {/* <View style={styles.lineView} />
+      <View style={styles.lineView1} /> */}
+      <Text style={styles.orText}></Text>
       <Pressable style={styles.rectanglePressable} onPress={() => {}} />
       <Text style={styles.loginWithFacebook}>Login with Facebook</Text>
       <Image
@@ -108,21 +108,25 @@ const WelcomeLoginStudent = () => {
 const styles = StyleSheet.create({
   undrawChoosingHouseRe1rv7Icon: {
     position: "absolute",
-    top: 72,
+    top: 60,
     left: 94,
     width: 177,
-    height: 131,
+    height: 100,
     overflow: "hidden",
   },
   welcomeBackText: {
     fontSize: 24,
+    left: 50,
+    
+    
   },
   text: {
     fontSize: 20,
+   
   },
   welcomeBackText1: {
     position: "absolute",
-    top: 239,
+    top: 180,
     left: 120,
     fontWeight: "700",
     fontFamily: "Lato",
@@ -131,7 +135,7 @@ const styles = StyleSheet.create({
   },
   forgetPasswordText: {
     position: "absolute",
-    top: 425,
+    top: 390,
     left: 236,
     fontSize: 14,
     fontFamily: "Lato",
@@ -148,7 +152,7 @@ const styles = StyleSheet.create({
   },
   rectangleRNPTextInput: {
     position: "absolute",
-    top: 357.5,
+    top: 315.5,
     left: 38,
     borderRadius: 13,
     borderStyle: "solid",
@@ -157,14 +161,14 @@ const styles = StyleSheet.create({
   },
   eyePasswordIcon: {
     position: "absolute",
-    top: 369,
+    top: 334.5,
     left: 309,
     width: 24,
     height: 24,
   },
   rectangleRNPTextInput1: {
     position: "absolute",
-    top: 284.5,
+    top: 244.5,
     left: 37.5,
     borderRadius: 13,
     borderStyle: "solid",
@@ -178,40 +182,37 @@ const styles = StyleSheet.create({
   },
   rectangleTouchableHighlight: {
     position: "absolute",
-    left: 40.5,
-    top: 458,
-    width: 312,
+    left: 42.5,
+    top: 428,
+    width: 290,
     height: 48,
   },
   buttonLoginText: {
     position: "absolute",
-    top: 472,
+    top: 438,
     left: 175,
-    fontSize: 14,
-    fontWeight: "600",
-    fontFamily: "Poppins",
+    fontSize: 16,
+    fontWeight: "500",
     color: "rgba(255, 255, 255, 0.9)",
     textAlign: "left",
   },
   signupText: {
     fontSize: 14,
     fontWeight: "500",
-    fontFamily: "Poppins",
     color: "#2f89fc",
     textAlign: "left",
   },
   signupPressable: {
     position: "absolute",
-    left: 179,
-    top: 0,
+    left: 89,
+    top: -10,
   },
   dontHaveAnAccount: {
     position: "absolute",
-    top: 0,
-    left: 0,
+    top: -40,
+    left: 30,
     fontSize: 14,
     fontWeight: "500",
-    fontFamily: "Poppins",
     color: "rgba(0, 0, 0, 0.8)",
     textAlign: "left",
   },
@@ -247,7 +248,6 @@ const styles = StyleSheet.create({
     top: 560,
     left: 184,
     fontSize: 14,
-    fontFamily: "Poppins",
     color: "rgba(0, 0, 0, 0.8)",
     textAlign: "left",
   },
@@ -266,7 +266,6 @@ const styles = StyleSheet.create({
     left: 130,
     fontSize: 14,
     fontWeight: "600",
-    fontFamily: "Poppins",
     color: "rgba(255, 255, 255, 0.9)",
     textAlign: "left",
   },
@@ -295,7 +294,6 @@ const styles = StyleSheet.create({
     left: 134,
     fontSize: 14,
     fontWeight: "600",
-    fontFamily: "Poppins",
     color: "rgba(0, 0, 0, 0.6)",
     textAlign: "left",
   },

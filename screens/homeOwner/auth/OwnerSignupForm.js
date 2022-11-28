@@ -43,7 +43,7 @@ const HouseOwnerRegister = () => {
         <Text style={styles.loginText}>login</Text>
         <Text style={styles.text}>{`  `}</Text>
       </Pressable>
-      <Text style={styles.haveAnAccount}>{`Have an account ? `}</Text>
+      <Text style={styles.haveAnAccount}>{`Have an account ?`}</Text>
       <View style={styles.rectangleView}>
         <DropDownPicker
           style={styles.dropDownPicker}
