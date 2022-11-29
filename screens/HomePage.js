@@ -17,7 +17,7 @@ const HomePageStudent = () => {
       <View style={styles.homePageStudent}>
         <Pressable
           style={styles.ellipsePressable}
-          onPress={() => navigation.navigate("ProfileView")}
+          onPress={() => navigation.navigate("Profile")}
         >
           <Image
             style={styles.icon}
@@ -25,7 +25,25 @@ const HomePageStudent = () => {
             source={require("../assets/HomeScreen/ellipse17.png")}
           />
         </Pressable>
-        <View style={styles.lineView} />
+       <View>
+        <Image
+        style={styles.iconsaxLinearhome}
+        resizeMode="cover"
+        source={require("../assets/HomeScreen/iconsHome.png")}
+      />
+      <Image
+        style={styles.iconsaxLinearmessage}
+        resizeMode="cover"
+        source={require("../assets/HomeScreen/iconsMessage.png")}
+      />
+      <Image
+        style={styles.iconsaxLinearblogger}
+        resizeMode="cover"  
+        source={require("../assets/HomeScreen/iconsBlog.png")}
+      />
+      </View>
+       
+      <View style={styles.lineView} />
         <View style={styles.rectangleView} />
         <Image
           style={styles.images1Icon}
@@ -34,7 +52,9 @@ const HomePageStudent = () => {
         />
         <Text style={styles.singleRoomText}>single room</Text>
         <Text style={styles.tNDText}>100 TND</Text>
-       </View>
+
+      
+      </View>
     </ScrollView>
   );
 };
@@ -53,24 +73,24 @@ const styles = StyleSheet.create({
   },
   iconsaxLinearhome: {
     position: "absolute",
-    top: 500,
-    left: 49,
+    top: 780,
+    left: 35,
     width: 43,
     height: 43,
     overflow: "hidden",
   },
   iconsaxLinearmessage: {
     position: "absolute",
-    top: 783,
-    left: 174,
+    top: 780,
+    left: 160,
     width: 43,
     height: 43,
     overflow: "hidden",
   },
   iconsaxLinearblogger: {
     position: "absolute",
-    top: 775,
-    left: 294,
+    top: 780,
+    left: 275,
     width: 51,
     height: 51,
     overflow: "hidden",
@@ -86,13 +106,13 @@ const styles = StyleSheet.create({
     height: 10,
   },
   rectangleView: {
-    position: "absolute",
-    top: 195,
-    left: 14,
-    borderRadius: 11,
+    position: "relative",
+    top: 200,
+    left: 15,
+    borderRadius: 15,
     backgroundColor: "#fff",
-    width: 183,
-    height: 169,
+    width: 180,
+    height: 160,
   },
   singleRoomText: {
     position: "absolute",
@@ -113,93 +133,16 @@ const styles = StyleSheet.create({
     width: 49,
     height: 20,
   },
-  rectangleView1: {
-    position: "absolute",
-    top: 392,
-    left: 14,
-    borderRadius: 11,
-    backgroundColor: "#fff",
-    width: 183,
-    height: 169,
-  },
-  images2Icon: {
-    position: "absolute",
-    top: 405,
-    left: 39,
-    width: 133,
-    height: 117,
-  },
+
   images1Icon: {
     position: "absolute",
-    top: 215,
-    left: 37,
-    width: 133,
-    height: 117,
+    top: 210,
+    left: 32,
+    width: 145,
+    height: 130,
   },
-  rectangleView2: {
-    position: "absolute",
-    top: 195,
-    left: 204,
-    borderRadius: 11,
-    backgroundColor: "#fff",
-    width: 183,
-    height: 169,
-  },
-  images3Icon: {
-    position: "absolute",
-    top: 215,
-    left: 229,
-    width: 133,
-    height: 117,
-  },
-  rectangleView3: {
-    position: "absolute",
-    top: 390,
-    left: 204,
-    borderRadius: 11,
-    backgroundColor: "#fff",
-    width: 183,
-    height: 169,
-  },
-  images4Icon: {
-    position: "absolute",
-    top: 403,
-    left: 228,
-    width: 133,
-    height: 117,
-  },
-  rectangleView4: {
-    position: "absolute",
-    top: 577,
-    left: 14,
-    borderRadius: 11,
-    backgroundColor: "#fff",
-    width: 183,
-    height: 169,
-  },
-  images5Icon: {
-    position: "absolute",
-    top: 588,
-    left: 39,
-    width: 133,
-    height: 117,
-  },
-  rectangleView5: {
-    position: "absolute",
-    top: 575,
-    left: 204,
-    borderRadius: 11,
-    backgroundColor: "#fff",
-    width: 183,
-    height: 169,
-  },
-  images6Icon: {
-    position: "absolute",
-    top: 588,
-    left: 228,
-    width: 133,
-    height: 117,
-  },
+ 
+
   homePageStudent: {
     position: "relative",
     backgroundColor: "#e3f1f4",

@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
     letterSpacing: -0.31,
     lineHeight: 25,
     fontWeight: "500",
-    fontFamily: "Poppins",
     color: "#fff",
     textAlign: "center",
   },
