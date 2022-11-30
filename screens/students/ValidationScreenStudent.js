@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     top: 579,
     left: 102,
     fontSize: 18,
-    fontFamily: "Inter",
     color: "#fff",
     textAlign: "center",
     width: 188,

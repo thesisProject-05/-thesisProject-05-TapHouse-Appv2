@@ -43,7 +43,7 @@ const HouseOwnerRegister = () => {
         <Text style={styles.loginText}>login</Text>
         <Text style={styles.text}>{`  `}</Text>
       </Pressable>
-      <Text style={styles.haveAnAccount}>{`Have an account ? `}</Text>
+      <Text style={styles.haveAnAccount}>{`Have an account ?`}</Text>
       <View style={styles.rectangleView}>
         <DropDownPicker
           style={styles.dropDownPicker}
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     top: 791,
     left: 161,
     fontSize: 16,
-    fontFamily: "Lato",
+   
     color: "#645e5e",
     textAlign: "left",
     width: 160,
@@ -181,7 +181,6 @@ const styles = StyleSheet.create({
     top: 914,
     left: 218,
     fontSize: 14,
-    fontFamily: "Lato",
     textAlign: "left",
     width: 31,
     height: 18,
@@ -191,7 +190,6 @@ const styles = StyleSheet.create({
     top: 914,
     left: 89,
     fontSize: 14,
-    fontFamily: "Lato",
     color: "#000",
     textAlign: "left",
   },
@@ -282,7 +280,6 @@ const styles = StyleSheet.create({
     top: 852,
     left: 89,
     fontWeight: "700",
-    fontFamily: "Lato",
     textAlign: "center",
     display: "flex",
     alignItems: "center",
