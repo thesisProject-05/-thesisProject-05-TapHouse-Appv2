@@ -10,14 +10,18 @@ import axios from 'axios';
 
 const ValidationScrenHomeOwner = ({navigation,route}) => {
   // const navigation = useNavigation();
-  const [value, setValue] = useState('');
- const email = route.params;
- console.log(email);
-  // const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
-  // const [props, getCellOnLayoutHandler] = useClearByFocusCell({
-  //   ...value,
-  //   setValue,
-  // });
+  const [verify,setVerify] = useState('');
+  const checkCode = () =>{
+    let verificationBody ={
+      id:route.params.id,
+      activationCode:verify
+    }
+    console.log(route.params,"oooooo")
+    axios.post(`http://192.168.11.226:3001/owner/check`,verificationBody.id).then((result)=>{
+    navigation.navigate("WelcomeLoginHouseOwner")
+    alert('thank you for joining TapHome')
+    }).catch((err)=>{console.log(err.message)})
+    }
   return (
     <ScrollView>
     <View style={styles.validationScrenHomeOwner}>
@@ -26,6 +30,7 @@ const ValidationScrenHomeOwner = ({navigation,route}) => {
         style={styles.rectangleTextInput}
         placeholder="  Validate Your Email   "
         keyboardType="default"
+        onChangeText={(text) => {setVerify(text)}}
       />
       <Image
         style={styles.groupIcon}
@@ -44,20 +49,10 @@ const ValidationScrenHomeOwner = ({navigation,route}) => {
       </Pressable>
       <Pressable
         style={styles.rectanglePressable}
-        onPress={() =>{ 
-          axios
-          .post(`http://192.168.11.226:3001/owner/check/${email}`,value)
-          .then((res)=>{
-
-            console.log(response.data,'the  response')
-          setValue(res.data);
-        navigation.navigate("WelcomeLoginHouseOwner");
-          } )
-          .catch(err=>console.log(err.message))
-        }}
-      >
+        onPress={() =>{checkCode()}}
+      />
       <Text style={styles.confirmText}>confirm</Text>
-     </Pressable >
+     
     </View>
     </ScrollView>
   );

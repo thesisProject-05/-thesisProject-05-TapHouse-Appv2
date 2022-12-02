@@ -27,26 +27,31 @@ const HouseOwnerRegister = ({ navigation }) => {
     dateOfBirth: "",
     city: "",
     cin: "",
-    photo:"https://media.istockphoto.com/id/1297349747/photo/hot-air-balloons-flying-over-the-botan-canyon-in-turkey.jpg?b=1&s=170667a&w=0&k=20&c=1oQ2rt0FfJFhOcOgJ8hoaXA5gY4225BA4RdOP1RRBz4=",
+    photo:
+      "https://media.istockphoto.com/id/1297349747/photo/hot-air-balloons-flying-over-the-botan-canyon-in-turkey.jpg?b=1&s=170667a&w=0&k=20&c=1oQ2rt0FfJFhOcOgJ8hoaXA5gY4225BA4RdOP1RRBz4=",
   });
-  const handleChange = (value,name) => {
+  const handleChange = (value, name) => {
     setData({
-      ...data,[name]: value
-    })
+      ...data,
+      [name]: value,
+    });
   };
   const handleSubmit = () => {
-    console.log(data)
-    axios.post(`http://192.168.11.226:3001/owner/register`,data)
-        .then((response) => {
-          console.log(response.data,'the  response')
-          setData(response.data);
-          navigation.navigate("ValidationScrenHomeOwner");
-          
-          
-        })
-        .catch((error) => console.log(error.message));
-    };
-
+    axios
+      .post(`http://192.168.11.226:3001/owner/register`, data)
+      .then((response) => {
+        // setData(response.data);
+        console.log(response.data.insertId, "=====id");
+        navigation.navigate("ValidationScrenHomeOwner", {
+          id: response.data.insertId,
+        });
+        // console.log(response,"=>respone");
+        console.log(response.data, "the data received");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   return (
     <ScrollView>
@@ -60,53 +65,61 @@ const HouseOwnerRegister = ({ navigation }) => {
           style={styles.fullNameText}
           placeholder="  Full name "
           keyboardType="default"
-          onChangeText={text=>handleChange(text,"fullName")}
+          onChangeText={(text) => handleChange(text, "fullName")}
         />
         <TextInput
           style={styles.emailText}
+          required
           placeholder=" Email"
+          autoCapitalize="none"
           keyboardType="default"
-          onChangeText={text=>handleChange(text,"email")}
-
+          onChangeText={(text) => handleChange(text, "email")}
         />
 
         <TextInput
           style={styles.passwordInput}
+          required
           placeholder="  Password"
+          autoCapitalize="none"
           keyboardType="default"
-          onChangeText={text=>handleChange(text,"password")}
+          minLength={8}
+          enablesReturnKeyAutomatically={true}
+          autoCorrect={false}
+          secureTextEntry={passwordVisibility}
+          onChangeText={(text) => handleChange(text, "password")}
         />
         <TextInput
           style={styles.phoneInput}
+          required
           placeholder="  Phone number "
           keyboardType="phone-pad"
-          onChangeText={text=>handleChange(text,"phoneNumber")}
+          onChangeText={(text) => handleChange(text, "phoneNumber")}
         />
 
         <TextInput
           style={styles.cityInput}
           placeholder="  City"
           keyboardType="default"
-          onChangeText={text=>handleChange(text,"city")}
+          onChangeText={(text) => handleChange(text, "city")}
         />
         <TextInput
           style={styles.cinInput}
           placeholder="  Cin"
           keyboardType="phone-pad"
-          onChangeText={text=>handleChange(text,"cin")}
+          onChangeText={(text) => handleChange(text, "cin")}
         />
         <TextInput
           style={styles.dateOfBirth}
           placeholder="  DateOfBirth"
           keyboardType="phone-pad"
-          onChangeText={text=>handleChange(text,"dateOfBirth")}
+          onChangeText={(text) => handleChange(text, "dateOfBirth")}
         />
 
         <Pressable
           style={styles.rectanglePressable}
           onPress={() => handleSubmit()}
         />
-        <Text style={styles.registerText}>{`Register`}</Text> 
+        <Text style={styles.registerText}>{`Register`}</Text>
 
         <Image
           style={styles.ellipseIcon}

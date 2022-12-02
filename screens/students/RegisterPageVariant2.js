@@ -45,13 +45,16 @@ const StudentRegister = ({navigation,route}) => {
         console.log(data)
         axios.post(`http://192.168.11.226:3001/student/register`,data)
             .then((response) => {
-              console.log(response.data,'the  response')
-              setData(response.data);
-              navigation.navigate("ValidationScrenStudent");
-              
+              console.log(response.data.insertId, "=====id");
+             
+              // setData(response.data);
+              navigation.navigate("ValidationScrenStudent", {
+                id: response.data.insertId,
+              });
+               console.log(response.data,'the  response', "the data received")
               
             })
-            .catch((error) => console.log(error));
+            .catch((error) => console.log(error.message));
         };
   return (
     <ScrollView >
@@ -90,7 +93,7 @@ const StudentRegister = ({navigation,route}) => {
       <TextInput
       required
         style={styles.rectangleTextInput}
-        placeholder="    Full name "
+        placeholder="  Full name "
         keyboardType="default"
         onChangeText={text=>handleChange(text,"fullName")}
       />
@@ -110,6 +113,7 @@ const StudentRegister = ({navigation,route}) => {
       required
         style={styles.rectangleTextInput2}
         placeholder="  Email"
+        autoCapitalize="none"
         keyboardType="default"
         onChangeText={text=>handleChange(text,"email")}
       />
