@@ -45,7 +45,7 @@ const ProfileView = () => {
         source={require("../assets/ProfileView/vector17.png")}
       /> */}
 
-      <Text style={styles.profilText} >Profil</Text>
+      <Text style={styles.profilText}>Profil</Text>
       
       <Image
         style={styles.profilIcon}
