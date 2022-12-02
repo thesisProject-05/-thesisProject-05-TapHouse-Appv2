@@ -1,21 +1,37 @@
-import * as React from "react";
-import { useState } from "react";
-import {
-  View,
-  Image,
-  StyleSheet,
-  Text,
-  Pressable,
-  TouchableHighlight,
-} from "react-native";
+import React, { useState } from "react";
+import {Text,StyleSheet,TouchableOpacity,Image, ScrollView,
+  Pressable,TouchableHighlight,View,} from "react-native";
 import { TextInput as RNPTextInput } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useTogglePasswordVisibility } from "../.././hooks/TogglePassword.js";
+import axios from "axios";
 
-const WelcomeLoginStudent = () => {
-  const [rectangleTextInput, setRectangleTextInput] = useState("");
-  const navigation = useNavigation();
 
+const WelcomeLoginStudent = ({ navigation}) => {
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+     useTogglePasswordVisibility();
+     const [onLogin, setOnLogin] = useState({
+      email: "",
+      password: "",
+    });
+    const handleChange = (value, name) => {
+      setOnLogin({
+        ...onLogin,
+        [name]: value,
+      });
+    };
+    const handleSubmit = () => {
+      axios
+        .post(`http://192.168.11.197:3001/student/login`, onLogin)
+        .then((response) => {
+          console.log(response.data);
+          setOnLogin(response.data)
+          navigation.navigate("HomePageStudent")
+        })
+        .catch((error)=> console.log(error.message))
+    };
   return (
+
     <View style={styles.welcomeLoginStudent}>
       <Image
         style={styles.undrawChoosingHouseRe1rv7Icon}
@@ -36,15 +52,22 @@ const WelcomeLoginStudent = () => {
         style={styles.rectangleRNPTextInput}
         placeholder="Enter Your Password"
         mode="outlined"
-        value={rectangleTextInput}
-        onChangeText={setRectangleTextInput}
+        keyboardType="default"
+        minLength={8}
+        enablesReturnKeyAutomatically={true}
+        autoCorrect={false}
+        secureTextEntry={passwordVisibility}
         theme={{ colors: { background: "#d9d9d9" } }}
+        onChangeText={(text) => handleChange(text, "password")}
       />
-      <Image
+        <Pressable style={styles.eye} onPress={handlePasswordVisibility}>
+        <MaterialCommunityIcons name={rightIcon} size={30} color="#44b3cc" />
+      </Pressable>
+      {/* <Image
         style={styles.eyePasswordIcon}
         resizeMode="cover"
         source={require("../../assets/students/WelcomeLoginpage/eyePassword.png")}
-      />
+      /> */}
       <RNPTextInput
         style={styles.rectangleRNPTextInput1}
         placeholder="Enter Your Email"
@@ -54,7 +77,7 @@ const WelcomeLoginStudent = () => {
       <TouchableHighlight
         style={styles.rectangleTouchableHighlight}
         underlayColor="#fff"
-        onPress={() => navigation.navigate("HomePageStudent")}
+        onPress={() => handleSubmit()}
       >
         <Image
           style={styles.icon}
@@ -324,6 +347,10 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     height: 840,
+  },
+  eye: {
+    left: "82%",
+    top: 398,
   },
 });
 

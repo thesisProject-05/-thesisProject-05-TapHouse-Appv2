@@ -1,15 +1,6 @@
 import React, { useState } from "react";
-import {
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  Pressable,
-  TouchableHighlight,
-  View,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import {Text,StyleSheet,TouchableOpacity,Image, ScrollView,
+Pressable,TouchableHighlight,View,} from "react-native";
 import { TextInput as RNPTextInput } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
