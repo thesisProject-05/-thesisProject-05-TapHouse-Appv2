@@ -1,23 +1,37 @@
-import * as React from "react";
-import {
-  TextInput,
-  StyleSheet,
-  Image,
-  Pressable,
-  Text,
-  View,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import {Animated, Image, SafeAreaView, Text, View,StyleSheet, Platform,TouchableOpacity,TextInput, Pressable, ScrollView} from 'react-native';
+import React, {useState} from 'react';
+// import {
+//   CodeField,
+//   Cursor,
+//   useBlurOnFulfill,
+//   useClearByFocusCell,
+// } from 'react-native-confirmation-code-field';
+import axios from 'axios';
+import link from "../../Link.js"
 
-const ValidationScrenHomeOwner = () => {
-  const navigation = useNavigation();
-
+const ValidationScrenHomeOwner = ({navigation,route}) => {
+  // const navigation = useNavigation();
+  const [verify,setVerify] = useState('');
+  const checkCode = () =>{
+    let verificationBody ={
+      id:route.params.id,
+      activationCode:verify
+    }
+    console.log(route.params,"oooooo")
+    axios.post(`http://192.168.11.197:3001/owner/check`,verificationBody.id).then((result)=>{
+    navigation.navigate("WelcomeLoginHouseOwner")
+    alert('thank you for joining TapHome')
+    }).catch((err)=>{console.log(err.message)})
+    }
   return (
+    <ScrollView>
     <View style={styles.validationScrenHomeOwner}>
+       <Text style={styles.title}>Verify your email</Text>
       <TextInput
         style={styles.rectangleTextInput}
-        placeholder="  Valdate Your Email   "
+        placeholder="  Validate Your Email   "
         keyboardType="default"
+        onChangeText={(text) => {setVerify(text)}}
       />
       <Image
         style={styles.groupIcon}
@@ -36,18 +50,20 @@ const ValidationScrenHomeOwner = () => {
       </Pressable>
       <Pressable
         style={styles.rectanglePressable}
-        onPress={() => navigation.navigate("WelcomeLoginHouseOwner")}
+        onPress={() =>{checkCode()}}
       />
       <Text style={styles.confirmText}>confirm</Text>
+     
     </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   rectangleTextInput: {
     position: "absolute",
-    top: 457,
-    left: 51,
+    top: "35.5%",
+    left: "10%",
     borderRadius: 13,
     backgroundColor: "#d9d9d9",
     width: 295,
@@ -55,12 +71,10 @@ const styles = StyleSheet.create({
   },
   groupIcon: {
     position: "absolute",
-    height: "30.91%",
-    width: "58.89%",
-    top: "6.5%",
-    right: "22.5%",
-    bottom: "62.59%",
-    left: "18.61%",
+    height: "15.91%",
+    width: "32.89%",
+    top: "7.5%",
+    left: "34.61%",
     maxWidth: "100%",
     overflow: "hidden",
     maxHeight: "100%",
@@ -83,8 +97,8 @@ const styles = StyleSheet.create({
   },
   rectanglePressable: {
     position: "absolute",
-    top: 573,
-    left: 51,
+    top: "46%",
+    left: "10%",
     borderRadius: 13,
     backgroundColor: "#3f424a",
     width: 295,
@@ -92,13 +106,13 @@ const styles = StyleSheet.create({
   },
   confirmText: {
     position: "absolute",
-    top: 579,
-    left: 102,
+    top: "4%",
+    left: "37%",
     fontSize: 18,
     color: "#fff",
     textAlign: "center",
-    width: 188,
-    height: 22,
+    width: "20%",
+    height: "7.5%",
   },
   validationScrenHomeOwner: {
     position: "relative",
@@ -106,6 +120,13 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     height: 844,
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 30,
+    color: "#000",
+    textAlign:'center',
+    top: "25%",
   },
 });
 

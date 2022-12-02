@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Image, StyleSheet, Text, View, ScrollView } from "react-native";
 
+
 const Profile = () => {
   return (
     <ScrollView>
@@ -53,11 +54,10 @@ const Profile = () => {
 
         <View style={styles.lineView1} />
         <Image
-        style={styles.instagram1Icon}
-        resizeMode="cover"
-        source={require("../assets/Profile/instagram1.png")}
-      />
-
+          style={styles.instagram1Icon}
+          resizeMode="cover"
+          source={require("../assets/Profile/instagram1.png")}
+        />
       </View>
     </ScrollView>
   );
@@ -109,7 +109,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "10%",
   },
-
 
   usernameText: {
     position: "absolute",
@@ -198,7 +197,7 @@ const styles = StyleSheet.create({
     left: "20%",
     fontSize: 20,
     fontWeight: "700",
-   
+
     color: "#000",
     textAlign: "left",
   },
@@ -209,7 +208,7 @@ const styles = StyleSheet.create({
     width: "10%",
     height: "5%",
   },
-  genderText:{
+  genderText: {
     position: "absolute",
     top: "53.8%",
     left: "46%",
@@ -217,14 +216,14 @@ const styles = StyleSheet.create({
     color: "#000",
     textAlign: "left",
   },
-  calenderIcon:{
+  calenderIcon: {
     position: "absolute",
     top: "60%",
     left: "6%",
     width: "10%",
     height: "4%",
   },
-  dateArea:{
+  dateArea: {
     position: "absolute",
     top: "60%",
     left: "20%",
@@ -233,7 +232,7 @@ const styles = StyleSheet.create({
     color: "#000",
     textAlign: "left",
   },
-  dateText:{
+  dateText: {
     position: "absolute",
     top: "60.3%",
     left: "59%",
@@ -257,8 +256,7 @@ const styles = StyleSheet.create({
     left: "7%",
     width: "20%",
     height: "10%",
-    borderRadius:10,
+    borderRadius: 10,
   },
-
 });
 export default Profile;
