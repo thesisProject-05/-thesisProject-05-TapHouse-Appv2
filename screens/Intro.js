@@ -43,7 +43,8 @@ const Intro = () => {
        
           <Text
             style={styles.helpStudentsFor}>
-              Hello this our first application to help students for a better experince in their university life and provide them with a interface for renting</Text>
+              Hello this our first application to help students for a better experince in
+               their university life and provide them with a interface for renting</Text>
          
          
         </Text>

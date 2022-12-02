@@ -38,7 +38,7 @@ const HouseOwnerRegister = ({ navigation }) => {
   };
   const handleSubmit = () => {
     axios
-      .post(`http://192.168.11.226:3001/owner/register`, data)
+      .post(`http://192.168.11.197:3001/owner/register`, data)
       .then((response) => {
         // setData(response.data);
         console.log(response.data.insertId, "=====id");

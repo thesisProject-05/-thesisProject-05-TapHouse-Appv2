@@ -7,6 +7,7 @@ import React, {useState} from 'react';
 //   useClearByFocusCell,
 // } from 'react-native-confirmation-code-field';
 import axios from 'axios';
+import link from "../../Link.js"
 
 const ValidationScrenHomeOwner = ({navigation,route}) => {
   // const navigation = useNavigation();
@@ -17,7 +18,7 @@ const ValidationScrenHomeOwner = ({navigation,route}) => {
       activationCode:verify
     }
     console.log(route.params,"oooooo")
-    axios.post(`http://192.168.11.226:3001/owner/check`,verificationBody.id).then((result)=>{
+    axios.post(`http://192.168.11.197:3001/owner/check`,verificationBody.id).then((result)=>{
     navigation.navigate("WelcomeLoginHouseOwner")
     alert('thank you for joining TapHome')
     }).catch((err)=>{console.log(err.message)})
