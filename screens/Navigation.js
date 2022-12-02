@@ -8,30 +8,9 @@ import WelcomeLoginHouseOwner from "./homeOwner/auth/WelcomeLoginHouseOwner";
 import WelcomeLoginStudent from "./students/WelcomeLoginStudent";
 import ValidationScrenStudent from "./students/ValidationScreenStudent";
 import StudentRegister from "./students/RegisterPageVariant2";
-// import HouseOwnerRegister1 from "./screens/HouseOwnerRegister1";
-// import Profile from "./screens/Profile";
 import Profile from "./Profile";
-// import StudentValidation from "./screens/StudentValidation";
-// import HouseOwnerValidation from "./screens/HouseOwnerValidation";
-// import HouseOwnerLogin from "./screens/HouseOwnerLogin";
 import HomePageStudent from "./HomePage";
-// import StudentRegister1 from "./screens/StudentRegister1";
-// import WelcomeLoginStudent1 from "./screens/WelcomeLoginStudent1";
-// import RegisterPage from "./screens/RegisterPage";
-// import HomePic1 from "./screens/HomePic1";
-// import IPhone14Plus1 from "./screens/IPhone14Plus1";
-// import RegisterPageVariant2 from "./screens/RegisterPageVariant2";
-// import ProfileHomeOwner from "./screens/ProfileHomeOwner";
-// import FacebookF from "./screens/FacebookF";
-// import WelcomeLoginStudent2 from "./screens/WelcomeLoginStudent2";
-// import HomePageHouseOwner from "./screens/HomePageHouseOwner";
-// import WelcomeLoginHouseOwner1 from "./screens/WelcomeLoginHouseOwner1";
 import Intro from "./Intro";
-// import ValidationScren from "./screens/ValidationScren";
-// import ProfileHomeOwner1 from "./screens/ProfileHomeOwner1";
-// import HomeOwnerRegister from "./screens/HomeOwnerRegister";
-// import GroupScreen from "./screens/GroupScreen";
-// import IPhone141 from "./screens/IPhone141";
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { IconRegistry, ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
@@ -91,8 +70,6 @@ const App = () => {
                 component={Intro}
                 options={{ headerShown: false }}
               />
-          
-              
               <Stack.Screen
                 name="WelcomeLoginHouseOwner"
                 component={WelcomeLoginHouseOwner}
@@ -107,8 +84,8 @@ const App = () => {
                 name="ValidationScrenHomeOwner"
                 component={ValidationScrenHomeOwner}
                 options={{ headerShown: false }}
-              /> 
-             
+              />
+
               <Stack.Screen
                 name="WelcomeLoginStudent"
                 component={WelcomeLoginStudent}
@@ -139,111 +116,7 @@ const App = () => {
                 component={Profile}
                 options={{ headerShown: false }}
               />
-              {/* <Stack.Screen
-                name="HouseOwnerRegister1"
-                component={HouseOwnerRegister1}
-                options={{ headerShown: false }}
-              />
-              
-              <Stack.Screen
-                name="HomeOwner"
-                component={HomeOwner}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="StudentValidation"
-                component={StudentValidation}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="HouseOwnerValidation"
-                component={HouseOwnerValidation}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="HouseOwnerLogin"
-                component={HouseOwnerLogin}
-                options={{ headerShown: false }}
-              />
-              
-              <Stack.Screen
-                name="StudentRegister1"
-                component={StudentRegister1}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="WelcomeLoginStudent1"
-                component={WelcomeLoginStudent1}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="RegisterPage"
-                component={RegisterPage}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="HomePic1"
-                component={HomePic1}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="IPhone14Plus1"
-                component={IPhone14Plus1}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="RegisterPageVariant2"
-                component={RegisterPageVariant2}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="ProfileHomeOwner"
-                component={ProfileHomeOwner}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="FacebookF"
-                component={FacebookF}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="WelcomeLoginStudent2"
-                component={WelcomeLoginStudent2}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="HomePageHouseOwner"
-                component={HomePageHouseOwner}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="WelcomeLoginHouseOwner1"
-                component={WelcomeLoginHouseOwner1}
-                options={{ headerShown: false }}
-              />
-              
-              <Stack.Screen
-                name="ValidationScren"
-                component={ValidationScren}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="ProfileHomeOwner1"
-                component={ProfileHomeOwner1}
-                options={{ headerShown: false }}
-              />
-              
-              <Stack.Screen
-                name="Group1"
-                component={GroupScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="IPhone141"
-                component={IPhone141}
-                options={{ headerShown: false }}
-              />*/}
-            </Stack.Navigator> 
+            </Stack.Navigator>
           ) : null}
         </NavigationContainer>
       </ApplicationProvider>
