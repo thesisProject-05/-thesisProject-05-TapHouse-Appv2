@@ -23,7 +23,7 @@ const Intro = () => {
       <Image
         style={styles.icon2}
         resizeMode="cover"
-        source={require("../assets/intro/Group8.png")}
+        source={require("../assets/intro/group8.png")}
       />
       </Pressable>
       <Text style={styles.studentText}>student</Text>
