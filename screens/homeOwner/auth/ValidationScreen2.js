@@ -7,7 +7,7 @@ import React, {useState} from 'react';
 //   useClearByFocusCell,
 // } from 'react-native-confirmation-code-field';
 import axios from 'axios';
-import link from "../../Link.js"
+import link from "../../../Link.js";
 
 const ValidationScrenHomeOwner = ({navigation,route}) => {
   // const navigation = useNavigation();
@@ -18,7 +18,7 @@ const ValidationScrenHomeOwner = ({navigation,route}) => {
       activationCode:verify
     }
     console.log(route.params,"oooooo")
-    axios.post(`http://192.168.11.197:3001/owner/check`,verificationBody.id).then((result)=>{
+    axios.post(`${link}/owner/check`,verificationBody.id).then((result)=>{
     navigation.navigate("WelcomeLoginHouseOwner")
     alert('thank you for joining TapHome')
     }).catch((err)=>{console.log(err.message)})
@@ -36,7 +36,7 @@ const ValidationScrenHomeOwner = ({navigation,route}) => {
       <Image
         style={styles.groupIcon}
         resizeMode="cover"
-        source={require("../../assets/ValidationScreen2/group9.png")}
+        source={require("../../../assets/ValidationScreen2/group9.png")}
       />
       <Pressable
         style={styles.vectorPressable}
@@ -45,7 +45,7 @@ const ValidationScrenHomeOwner = ({navigation,route}) => {
         <Image
           style={styles.icon}
           resizeMode="cover"
-          source={require("../../assets/ValidationScreen2/vector.png")}
+          source={require("../../../assets/ValidationScreen2/vector.png")}
         />
       </Pressable>
       <Pressable

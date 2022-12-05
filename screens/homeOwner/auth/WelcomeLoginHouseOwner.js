@@ -6,6 +6,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword.js";
 import axios from "axios";
+import link from "../../../Link.js";
 
 const WelcomeLoginHouseOwner = ({ navigation}) => {
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
@@ -24,9 +25,9 @@ const WelcomeLoginHouseOwner = ({ navigation}) => {
 
   const handleSubmit = () => {
     axios
-      .post(`http://192.168.11.197:3001/owner/login`, onLogin)
+      .post(`${link}/owner/login`, onLogin)
       .then((response) => {
-        console.log(response.data);
+        console.log(onLogin);
         setOnLogin(response.data)
         navigation.navigate("HomePageStudent")
       })
@@ -109,9 +110,10 @@ const WelcomeLoginHouseOwner = ({ navigation}) => {
       <View style={styles.groupView}>
         <Pressable
           style={styles.signupPressable}
-          // onPress={() => handleSubmit()}
+          onPress={() => navigation.navigate("HouseOwnerRegister")}
         >
           <Text style={styles.signupText}>Signup</Text>
+
         </Pressable>
         <Text
           style={styles.dontHaveAnAccount}

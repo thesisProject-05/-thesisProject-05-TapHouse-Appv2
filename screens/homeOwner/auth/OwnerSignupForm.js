@@ -15,6 +15,7 @@ import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword.js";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Datepicker as RNKDatepicker } from "@ui-kitten/components";
 import { Button } from "react-native-paper";
+import link from "../../../Link.js";
 
 const HouseOwnerRegister = ({ navigation }) => {
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
@@ -38,7 +39,7 @@ const HouseOwnerRegister = ({ navigation }) => {
   };
   const handleSubmit = () => {
     axios
-      .post(`http://192.168.11.197:3001/owner/register`, data)
+      .post(`${link}/owner/register`, data)
       .then((response) => {
         // setData(response.data);
         console.log(response.data.insertId, "=====id");
