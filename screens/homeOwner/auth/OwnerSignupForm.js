@@ -1,5 +1,6 @@
-import * as React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 import {
   Image,
   StyleSheet,
@@ -7,128 +8,178 @@ import {
   Pressable,
   TextInput,
   View,
+  TouchableOpacity,
+  ScrollView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword.js";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Datepicker as RNKDatepicker } from "@ui-kitten/components";
+import { Button } from "react-native-paper";
 
-const HouseOwnerRegister = () => {
-  const [rectangleDropdownOpen, setRectangleDropdownOpen] = useState(false);
-  const [rectangleDropdownValue, setRectangleDropdownValue] = useState("");
-  const [rectangleDropdownItems, setRectangleDropdownItems] = useState([
-    { value: "Ariena", label: "Ariena" },
-    { value: "Manouba", label: "Manouba" },
-    { value: "Tunis", label: "Tunis" },
-  ]);
-  const [rectangleDatePicker, setRectangleDatePicker] = useState(undefined);
-  const navigation = useNavigation();
+const HouseOwnerRegister = ({ navigation }) => {
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+    useTogglePasswordVisibility();
+  const [data, setData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    dateOfBirth: "",
+    city: "",
+    cin: "",
+    photo:
+      "https://media.istockphoto.com/id/1297349747/photo/hot-air-balloons-flying-over-the-botan-canyon-in-turkey.jpg?b=1&s=170667a&w=0&k=20&c=1oQ2rt0FfJFhOcOgJ8hoaXA5gY4225BA4RdOP1RRBz4=",
+  });
+  const handleChange = (value, name) => {
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+  const handleSubmit = () => {
+    axios
+      .post(`http://192.168.11.197:3001/owner/register`, data)
+      .then((response) => {
+        // setData(response.data);
+        console.log(response.data.insertId, "=====id");
+        navigation.navigate("ValidationScrenHomeOwner", {
+          id: response.data.insertId,
+        });
+        // console.log(response,"=>respone");
+        console.log(response.data, "the data received");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   return (
-    <View style={styles.houseOwnerRegisterView}>
-      <Image
-        style={styles.undrawAccessAccountRe8spmIcon}
-        resizeMode="cover"
-        source={require("../../../assets/homeOwner/Register/undrawAccess.png")}
-      />
-      <Image
-        style={styles.icons8PhotoGallery1001}
-        resizeMode="cover"
-        source={require("../../../assets/homeOwner/Register/icons.png")}
-      />
-      <Text style={styles.uploadYourPicture}>{`Upload your picture `}</Text>
-      <Pressable
-        style={styles.loginPressable}
-        onPress={() => navigation.navigate("WelcomeLoginHouseOwner")}
-      >
-        <Text style={styles.loginText}>login</Text>
-        <Text style={styles.text}>{`  `}</Text>
-      </Pressable>
-      <Text style={styles.haveAnAccount}>{`Have an account ? `}</Text>
-      <View style={styles.rectangleView}>
-        <DropDownPicker
-          style={styles.dropDownPicker}
-          open={rectangleDropdownOpen}
-          setOpen={setRectangleDropdownOpen}
-          value={rectangleDropdownValue}
-          setValue={setRectangleDropdownValue}
-          placeholder="City "
-          items={rectangleDropdownItems}
-          dropDownContainerStyle={styles.rectangleDropdowndropDownContainer}
-        />
-      </View>
-      <TextInput
-        style={styles.rectangleTextInput}
-        placeholder="  C.I.N"
-        keyboardType="default"
-      />
-      <TextInput
-        style={styles.rectangleTextInput1}
-        placeholder="  C.I.N"
-        keyboardType="default"
-      />
-      <TextInput
-        style={styles.rectangleTextInput2}
-        placeholder="  Password"
-        keyboardType="default"
-      />
-      <TextInput
-        style={styles.rectangleTextInput3}
-        placeholder="  Phone number "
-        keyboardType="phone-pad"
-      />
-      <RNKDatepicker
-        style={styles.rectangleRNKDatepicker}
-        placeholder="Date of birth "
-        date={rectangleDatePicker}
-        onSelect={setRectangleDatePicker}
-        controlStyle={styles.rectangleDatePickerValue}
-      />
-      <TextInput
-        style={styles.rectangleTextInput4}
-        placeholder="  Email"
-        keyboardType="default"
-      />
-      <TextInput
-        style={styles.rectangleTextInput5}
-        placeholder="  Full name "
-        keyboardType="default"
-      />
-      <Text style={styles.registerText1}>
-        <Text style={styles.registerTxtText}>
-          <Text style={styles.registerText}>Register</Text>
-          <Text style={styles.text1}>{` `}</Text>
-        </Text>
-      </Text>
-      <Image
-        style={styles.ellipseIcon}
-        resizeMode="cover"
-        source={require("../../../assets/homeOwner/Register/ellipse11.png")}
-      />
-      <Image
-        style={styles.ellipseIcon1}
-        resizeMode="cover"
-        source={require("../../../assets/homeOwner/Register/ellipse12.png")}
-      />
-      <Image
-        style={styles.ellipseIcon2}
-        resizeMode="cover"
-        source={require("../../../assets/homeOwner/Register/ellipse111.png")}
-      />
-      <Pressable
-        style={styles.vectorPressable}
-        onPress={() => navigation.goBack()}
-      >
+    <ScrollView>
+      <View style={styles.houseOwnerRegisterView}>
         <Image
-          style={styles.icon}
+          style={styles.homeOwnerLogo}
           resizeMode="cover"
-          source={require("../../../assets/homeOwner/Register/vector.png")}
+          source={require("../../../assets/homeOwner/Register/undrawAccess.png")}
         />
-      </Pressable>
-    </View>
+        <TextInput
+          style={styles.fullNameText}
+          placeholder="  Full name "
+          keyboardType="default"
+          onChangeText={(text) => handleChange(text, "fullName")}
+        />
+        <TextInput
+          style={styles.emailText}
+          required
+          placeholder=" Email"
+          autoCapitalize="none"
+          keyboardType="default"
+          onChangeText={(text) => handleChange(text, "email")}
+        />
+
+        <TextInput
+          style={styles.passwordInput}
+          required
+          placeholder="  Password"
+          autoCapitalize="none"
+          keyboardType="default"
+          minLength={8}
+          enablesReturnKeyAutomatically={true}
+          autoCorrect={false}
+          secureTextEntry={passwordVisibility}
+          onChangeText={(text) => handleChange(text, "password")}
+        />
+        <TextInput
+          style={styles.phoneInput}
+          required
+          placeholder="  Phone number "
+          keyboardType="phone-pad"
+          onChangeText={(text) => handleChange(text, "phoneNumber")}
+        />
+
+        <TextInput
+          style={styles.cityInput}
+          placeholder="  City"
+          keyboardType="default"
+          onChangeText={(text) => handleChange(text, "city")}
+        />
+        <TextInput
+          style={styles.cinInput}
+          placeholder="  Cin"
+          keyboardType="phone-pad"
+          onChangeText={(text) => handleChange(text, "cin")}
+        />
+        <TextInput
+          style={styles.dateOfBirth}
+          placeholder="  DateOfBirth"
+          keyboardType="phone-pad"
+          onChangeText={(text) => handleChange(text, "dateOfBirth")}
+        />
+
+        <Pressable
+          style={styles.rectanglePressable}
+          onPress={() => handleSubmit()}
+        />
+        <Text style={styles.registerText}>{`Register`}</Text>
+
+        <Image
+          style={styles.ellipseIcon}
+          resizeMode="cover"
+          source={require("../../../assets/homeOwner/Register/ellipse11.png")}
+        />
+        <Image
+          style={styles.ellipseIcon1}
+          resizeMode="cover"
+          source={require("../../../assets/homeOwner/Register/ellipse12.png")}
+        />
+        <Image
+          style={styles.ellipseIcon2}
+          resizeMode="cover"
+          source={require("../../../assets/homeOwner/Register/ellipse111.png")}
+        />
+        <Image
+          style={styles.photoGallery}
+          resizeMode="cover"
+          source={require("../../../assets/homeOwner/Register/icons.png")}
+        />
+        <Text style={styles.uploadYourPicture}>{` Upload your picture `}</Text>
+        <Pressable
+          style={styles.vectorPressable}
+          onPress={() => navigation.goBack()}
+        >
+          <Image
+            style={styles.icon}
+            resizeMode="cover"
+            source={require("../../../assets/homeOwner/Register/vector.png")}
+          />
+        </Pressable>
+        <Pressable
+          style={styles.loginPressable}
+          onPress={() => navigation.navigate("WelcomeLoginHouseOwner")}
+        >
+          <Text style={styles.text}>{`LOGIN `}</Text>
+        </Pressable>
+        <Text style={styles.haveAnAccount}>{`Have an account ?`}</Text>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  houseOwnerRegisterView: {
+    position: "relative",
+    backgroundColor: "#6a9ea9",
+    flex: 1,
+    width: "100%",
+    height: 984,
+  },
+  homeOwnerLogo: {
+    position: "absolute",
+    top: "3%",
+    left: "30%",
+    borderRadius: 35,
+    width: "50%",
+    height: "22%",
+  },
   rectangleDropdowndropDownContainer: {
     backgroundColor: "#d9d9d9",
   },
@@ -138,27 +189,19 @@ const styles = StyleSheet.create({
     width: 320,
     height: 50,
   },
-  undrawAccessAccountRe8spmIcon: {
+
+  photoGallery: {
     position: "absolute",
-    top: 47,
-    left: 54,
-    borderRadius: 127,
-    width: 246,
-    height: 203,
-  },
-  icons8PhotoGallery1001: {
-    position: "absolute",
-    top: 762,
-    left: 54,
+    top: "72%",
+    left: "10%",
     width: 68,
     height: 89,
   },
   uploadYourPicture: {
     position: "absolute",
-    top: 791,
-    left: 161,
+    top: "76%",
+    left: "37%",
     fontSize: 16,
-    fontFamily: "Lato",
     color: "#645e5e",
     textAlign: "left",
     width: 160,
@@ -172,26 +215,29 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: "#fff",
+    left: "10%",
   },
   text: {
     color: "#000",
+    fontSize: 16,
+    top: 0,
+    // width: "100%",
+    // height: "20%",
   },
   loginPressable: {
     position: "absolute",
-    top: 914,
-    left: 218,
-    fontSize: 14,
-    fontFamily: "Lato",
+    top: "90.2%",
+    left: "62%",
+    fontSize: 10,
     textAlign: "left",
-    width: 31,
-    height: 18,
+    width: "14%",
+    height: "5%",
   },
   haveAnAccount: {
     position: "absolute",
-    top: 914,
-    left: 89,
-    fontSize: 14,
-    fontFamily: "Lato",
+    top: "90%",
+    left: "15%",
+    fontSize: 18,
     color: "#000",
     textAlign: "left",
   },
@@ -206,15 +252,7 @@ const styles = StyleSheet.create({
     width: 320,
     height: 50,
   },
-  rectangleTextInput: {
-    position: "absolute",
-    top: 697,
-    left: 18,
-    borderRadius: 13,
-    backgroundColor: "#d9d9d9",
-    width: 320,
-    height: 50,
-  },
+
   rectangleTextInput1: {
     position: "absolute",
     top: 848,
@@ -224,71 +262,70 @@ const styles = StyleSheet.create({
     width: 320,
     height: 50,
   },
-  rectangleTextInput2: {
+  fullNameText: {
     position: "absolute",
-    top: 408.5,
+    top: "29%",
     left: 18,
     borderRadius: 13,
     backgroundColor: "#d9d9d9",
     width: 320,
     height: 50,
   },
-  rectangleTextInput3: {
+  emailText: {
     position: "absolute",
-    top: 482,
+    top: "35%",
     left: 18,
     borderRadius: 13,
     backgroundColor: "#d9d9d9",
     width: 320,
     height: 50,
   },
-  rectangleRNKDatepicker: {
+  passwordInput: {
     position: "absolute",
-    top: 553,
-    left: 18,
-  },
-  rectangleTextInput4: {
-    position: "absolute",
-    top: 337.5,
+    top: "41%",
     left: 18,
     borderRadius: 13,
     backgroundColor: "#d9d9d9",
     width: 320,
     height: 50,
   },
-  rectangleTextInput5: {
+  phoneInput: {
     position: "absolute",
-    top: 266,
+    top: "47%",
     left: 18,
     borderRadius: 13,
     backgroundColor: "#d9d9d9",
     width: 320,
     height: 50,
   },
-  registerText: {
-    fontSize: 24,
-    color: "#fff",
-  },
-  text1: {
-    fontSize: 20,
-    color: "#000",
-  },
-  registerTxtText: {
-    lineBreak: "anywhere",
-    width: "100%",
-  },
-  registerText1: {
+  cityInput: {
     position: "absolute",
-    top: 852,
-    left: 89,
-    fontWeight: "700",
-    fontFamily: "Lato",
-    textAlign: "center",
-    display: "flex",
-    alignItems: "center",
-    width: 172,
-    height: 36,
+    top: "53%",
+    left: 18,
+    borderRadius: 13,
+    backgroundColor: "#d9d9d9",
+    width: 320,
+    height: 50,
   },
+  cinInput: {
+    position: "absolute",
+    top: "59%",
+    left: 18,
+    borderRadius: 13,
+    backgroundColor: "#d9d9d9",
+    width: 320,
+    height: 50,
+  },
+  dateOfBirth: {
+    position: "absolute",
+    top: "65%",
+    left: 18,
+    borderRadius: 13,
+    backgroundColor: "#d9d9d9",
+    width: 320,
+    height: 50,
+  },
+
   ellipseIcon: {
     position: "absolute",
     top: 0,
@@ -328,12 +365,24 @@ const styles = StyleSheet.create({
     width: "5%",
     height: "2.85%",
   },
-  houseOwnerRegisterView: {
-    position: "relative",
-    backgroundColor: "#6a9ea9",
-    flex: 1,
-    width: "100%",
-    height: 984,
+  rectanglePressable: {
+    position: "absolute",
+    top: "82.23%",
+    left: "15%",
+    borderRadius: 13,
+    backgroundColor: "#3f424a",
+    width: "70%",
+    height: "4%",
+  },
+  registerText: {
+    position: "absolute",
+    top: "82.50%",
+    left: "38%",
+    fontSize: 20,
+    color: "#fff",
+    textAlign: "left",
+    width: 152,
+    height: 32,
   },
 });
 

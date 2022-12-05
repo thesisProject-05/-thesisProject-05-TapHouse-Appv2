@@ -1,19 +1,43 @@
-import * as React from "react";
-import {
-  Image,
-  StyleSheet,
-  Pressable,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import {Animated, Image, SafeAreaView, Text, View,StyleSheet, Platform,TouchableOpacity,TextInput, Pressable, ScrollView} from 'react-native';
+import React, {useState} from 'react';
+// import {
+//   CodeField,
+//   Cursor,
+//   useBlurOnFulfill,
+//   useClearByFocusCell,
+// } from 'react-native-confirmation-code-field';
+import axios from 'axios';
 import { useNavigation } from "@react-navigation/native";
 
-const ValidationScrenStudent = () => {
+const ValidationScrenStudent = ({route}) => {
   const navigation = useNavigation();
-
+  const [verify,setVerify] = useState('');
+  const checkCode = () =>{
+    let verificationBody ={
+      id:route.params.id,
+      activationCode:verify
+    }
+    console.log(route.params,"<<===route.params")
+    axios.post(`http://192.168.11.226:3001/student/check`,verificationBody.id).then((result)=>{
+    navigation.navigate("WelcomeLoginStudent")
+    alert('thank you for joining TapHome')
+    }).catch((err)=>{console.log(err.message)})
+    }
   return (
     <View style={styles.validationScrenStudent}>
+<Text style={styles.title}>Verify your email</Text>
+<TextInput
+        style={styles.rectangleTextInput}
+        placeholder="  Validate Your  Email "
+        keyboardType="default"
+        onChangeText={(text) => {setVerify(text)}}
+      />
+      <Image
+        style={styles.undrawCertificationReIfll1Icon}
+        resizeMode="cover"
+        source={require("../../assets/ValidationScreen/undrawCertification.png")}
+      />
+
       <Pressable
         style={styles.vectorPressable}
         onPress={() => navigation.goBack()}
@@ -26,19 +50,11 @@ const ValidationScrenStudent = () => {
       </Pressable>
       <Pressable
         style={styles.rectanglePressable}
-        onPress={() => navigation.navigate("WelcomeLoginStudent")}
+        onPress={() =>{checkCode()}}
       />
       <Text style={styles.confirmText}>confirm</Text>
-      <Image
-        style={styles.undrawCertificationReIfll1Icon}
-        resizeMode="cover"
-        source={require("../../assets/ValidationScreen/undrawCertification.png")}
-      />
-      <TextInput
-        style={styles.rectangleTextInput}
-        placeholder="  Valdate Your  Email "
-        keyboardType="default"
-      />
+     
+    
     </View>
   );
 };
@@ -74,7 +90,6 @@ const styles = StyleSheet.create({
     top: 579,
     left: 102,
     fontSize: 18,
-    fontFamily: "Inter",
     color: "#fff",
     textAlign: "center",
     width: 188,
@@ -102,6 +117,13 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     height: 844,
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 30,
+    color: "#000",
+    textAlign:'center',
+    top: "25%",
   },
 });
 
