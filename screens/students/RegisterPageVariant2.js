@@ -15,6 +15,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 import axios from "axios";
 import {useTogglePasswordVisibility} from "../../hooks/TogglePassword.js";
+import link from "../.././Link.js"
 
 
 const StudentRegister = ({navigation,route}) => {
@@ -42,16 +43,16 @@ const StudentRegister = ({navigation,route}) => {
       };
 
       const handleSubmit = () => {
-        console.log(data)
-        axios.post(`http://192.168.11.226:3001/student/register`,data)
-            .then((response) => {
-              console.log(response.data.insertId, "=====id");
+        axios.post(`${link}/student/register`,data)
+            .then((response) => {console.log(response.data.insertId)
+              
              
               // setData(response.data);
               navigation.navigate("ValidationScrenStudent", {
                 id: response.data.insertId,
+                
               });
-               console.log(response.data,'the  response', "the data received")
+              console.log(response.data, "=====id");
               
             })
             .catch((error) => console.log(error.message));

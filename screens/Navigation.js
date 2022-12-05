@@ -2,7 +2,7 @@ const Stack = createNativeStackNavigator();
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import Splashscreen from "./Splashscreen";
-import ValidationScrenHomeOwner from "./homeOwner/ValidationScreen2";
+import ValidationScrenHomeOwner from "./homeOwner/auth/ValidationScreen2";
 import HouseOwnerRegister from "./homeOwner/auth/OwnerSignupForm";
 import WelcomeLoginHouseOwner from "./homeOwner/auth/WelcomeLoginHouseOwner";
 import WelcomeLoginStudent from "./students/WelcomeLoginStudent";
@@ -67,7 +67,7 @@ const App = () => {
               />
               <Stack.Screen
                 name="Intro"
-                component={Intro}
+                component={Intro }
                 options={{ headerShown: false }}
               />
               <Stack.Screen
