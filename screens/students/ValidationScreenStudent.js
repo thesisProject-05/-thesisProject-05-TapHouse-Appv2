@@ -8,17 +8,19 @@ import React, {useState} from 'react';
 // } from 'react-native-confirmation-code-field';
 import axios from 'axios';
 import { useNavigation } from "@react-navigation/native";
+import link from "../.././Link.js";
 
-const ValidationScrenStudent = ({route}) => {
-  const navigation = useNavigation();
+const ValidationScrenStudent = ({navigation,route}) => {
+  // const navigation = useNavigation();
   const [verify,setVerify] = useState('');
   const checkCode = () =>{
     let verificationBody ={
       id:route.params.id,
-      activationCode:verify
+      activationCode:verify,
+      
     }
     console.log(route.params,"<<===route.params")
-    axios.post(`http://192.168.11.226:3001/student/check`,verificationBody.id).then((result)=>{
+    axios.post(`${link}/student/check`,verificationBody.id).then((result)=>{
     navigation.navigate("WelcomeLoginStudent")
     alert('thank you for joining TapHome')
     }).catch((err)=>{console.log(err.message)})

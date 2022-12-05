@@ -5,7 +5,7 @@ import { TextInput as RNPTextInput } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTogglePasswordVisibility } from "../.././hooks/TogglePassword.js";
 import axios from "axios";
-
+import link from "../.././Link.js";
 
 const WelcomeLoginStudent = ({ navigation}) => {
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
@@ -20,13 +20,15 @@ const WelcomeLoginStudent = ({ navigation}) => {
         [name]: value,
       });
     };
-    const handleSubmit = () => {
+    const handleSubmit = () => { 
+      console.log(onLogin)
       axios
-        .post(`http://192.168.11.197:3001/student/login`, onLogin)
+        .post(`${link}/student/login`, onLogin)
         .then((response) => {
           console.log(response.data);
           setOnLogin(response.data)
           navigation.navigate("HomePageStudent")
+          console.log(onLogin,"2")
         })
         .catch((error)=> console.log(error.message))
     };
@@ -72,7 +74,9 @@ const WelcomeLoginStudent = ({ navigation}) => {
         style={styles.rectangleRNPTextInput1}
         placeholder="Enter Your Email"
         mode="outlined"
+        keyboardType="default"
         theme={{ colors: { background: "#d9d9d9" } }}
+        onChangeText={(text) => handleChange(text, "email")}
       />
       <TouchableHighlight
         style={styles.rectangleTouchableHighlight}
