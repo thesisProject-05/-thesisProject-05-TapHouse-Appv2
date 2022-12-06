@@ -1,27 +1,23 @@
 import * as React from "react";
-import { Image, StyleSheet, Pressable, View, Text } from "react-native";
+import { Image, StyleSheet, Pressable, View, Text,ScrollView,TextInput} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const HomePageStudent = () => {
   const navigation = useNavigation();
 
   return (
+    
+<ScrollView>
     <View style={styles.homePageStudent}>
       <Pressable
         style={styles.ellipsePressable}
         onPress={() => navigation.navigate("ProfileView")}
       >
         <Image
-          style={styles.icon}
-          resizeMode="cover"
-          source={require("../assets/HomeScreen/ellipse17.png")}
-        />
-      </Pressable>
-      <Image
         style={styles.iconsaxLinearhome}
         resizeMode="cover"
         source={require("../assets/HomeScreen/iconsHome.png")}
-      />
+      /></Pressable>
       <Image
         style={styles.iconsaxLinearmessage}
         resizeMode="cover"
@@ -29,49 +25,46 @@ const HomePageStudent = () => {
       />
       <Image
         style={styles.iconsaxLinearblogger}
-        resizeMode="cover"
+        resizeMode="cover"  
         source={require("../assets/HomeScreen/iconsBlog.png")}
       />
-      <View style={styles.lineView} />
-      <View style={styles.rectangleView} />
-      <Text style={styles.singleRoomText}>single room</Text>
-      <Text style={styles.tNDText}>100 TND</Text>
-      <View style={styles.rectangleView1} />
       <Image
-        style={styles.images2Icon}
+        style={styles.groupIcon}
         resizeMode="cover"
-        source={require("../assets/HomeScreen/images2.png")}
+        source={require("../assets/HomeScreen/Group 11.png")}
       />
+      
+      <View style={styles.rectangleView} />
+      <Text style={styles.singleRoomText}>Modern room</Text>
+      <Text style={styles.tNDText}>Ariana</Text>
+
+      <Text style={styles.findYourDreamHome}>
+        Find Your Dream Home</Text>
+        <Pressable
+        style={styles.maskGroupPressable}
+        onPress={() => navigation.navigate("Detail")}
+      >
       <Image
         style={styles.images1Icon}
         resizeMode="cover"
         source={require("../assets/HomeScreen/images2.png")}
       />
-      <View style={styles.rectangleView2} />
-      <Image
-        style={styles.images3Icon}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/images2.png")}
+      </Pressable>
+      
+      <TextInput
+        style={styles.rectangleTextInput}
+        placeholder="search..."
+        keyboardType="default"
       />
-      <View style={styles.rectangleView3} />
+      
       <Image
-        style={styles.images4Icon}
+        style={styles.iconSearch}
         resizeMode="cover"
-        source={require("../assets/HomeScreen/images2.png")}
+        source={require("../assets/HomeScreen/tabler-icon-search.png")}
       />
-      <View style={styles.rectangleView4} />
-      <Image
-        style={styles.images5Icon}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/images2.png")}
-      />
-      <View style={styles.rectangleView5} />
-      <Image
-        style={styles.images6Icon}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/images2.png")}
-      />
+    
     </View>
+    </ScrollView>
   );
 };
 
@@ -90,61 +83,107 @@ const styles = StyleSheet.create({
   iconsaxLinearhome: {
     position: "absolute",
     top: 780,
-    left: 49,
+    left: 35,
     width: 43,
     height: 43,
     overflow: "hidden",
   },
   iconsaxLinearmessage: {
     position: "absolute",
-    top: 783,
-    left: 174,
+    top: 780,
+    left: 160,
     width: 43,
     height: 43,
     overflow: "hidden",
   },
   iconsaxLinearblogger: {
     position: "absolute",
-    top: 775,
-    left: 294,
+    top: 780,
+    left: 275,
     width: 51,
     height: 51,
     overflow: "hidden",
   },
+  maskGroupPressable: {
+    position: "absolute",
+    left: 18,
+    top: 218,
+    width: 164,
+    height: 130.72,
+  },
+  groupIcon: {
+    position: "absolute",
+    top: 41.5,
+    left: 17,
+    width: 38,
+    height: 9,
+  },
+  rectangleTextInput: {
+    position: "absolute",
+    top: 213,
+    left: 63,
+    borderRadius: 19,
+    backgroundColor: "#fff",
+    width: 284,
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    height: 36,
+  },
+  iconSearch: {
+    position: "absolute",
+    height: "2.2%",
+    width: "5.5%",
+    top: "26.06%",
+    right: "17.1%",
+    bottom: "71.74%",
+    left: "77.4%",
+    maxWidth: "100%",
+    overflow: "hidden",
+    maxHeight: "100%",
+  },
+
+  findYourDreamHome: {
+    position: "absolute",
+    width: 279,
+height: 90,
+left: 18,
+top: 115,
+    fontSize: 30,
+    fontWeight: "600",
+    color: "#000",
+    textAlign: "left",
+  },
   lineView: {
     position: "absolute",
-    top: 759.5,
+    top: 909.5,
     left: -0.5,
     borderStyle: "solid",
-    borderColor: "#000",
+    borderColor: "#fff",
     borderTopWidth: 1,
     width: 394,
-    height: 1,
+    height: 10,
   },
   rectangleView: {
     position: "absolute",
-    top: 195,
+    top: 300,
     left: 14,
     borderRadius: 11,
     backgroundColor: "#fff",
-    width: 183,
-    height: 169,
+    width: 180,
+    height: 160,
   },
   singleRoomText: {
     position: "absolute",
-    top: 340,
+    top: 439,
     left: 36,
     fontSize: 11,
-    fontFamily: "Inter",
     color: "#000",
     textAlign: "left",
   },
   tNDText: {
     position: "absolute",
-    top: 340,
+    top: 439,
     left: 126,
     fontSize: 11,
-    fontFamily: "Inter",
     color: "#000",
     textAlign: "left",
     width: 49,
@@ -159,17 +198,11 @@ const styles = StyleSheet.create({
     width: 183,
     height: 169,
   },
-  images2Icon: {
-    position: "absolute",
-    top: 405,
-    left: 39,
-    width: 133,
-    height: 117,
-  },
+  
   images1Icon: {
     position: "absolute",
-    top: 215,
-    left: 37,
+    top: 100,
+    left: 17,
     width: 133,
     height: 117,
   },
@@ -237,6 +270,8 @@ const styles = StyleSheet.create({
     width: 133,
     height: 117,
   },
+ 
+
   homePageStudent: {
     position: "relative",
     backgroundColor: "#e3f1f4",

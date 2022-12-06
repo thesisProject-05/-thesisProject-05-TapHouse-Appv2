@@ -11,13 +11,17 @@ const Splashscreen = () => {
         style={styles.aaa2Icon}
         resizeMode="cover"
         source={require("../assets/Splashscreen/aaa1.png")}
+        onPress={() => navigation.navigate("Intro")}
       />
       <Pressable
         style={styles.groupPressable}
-        onPress={() => navigation.navigate("Intro")}
+       
       >
         <View style={styles.rectangleView} />
-        <Text style={styles.getStartedText}>Get Started!</Text>
+        <Text style={styles.getStartedText}
+          onPress={() => navigation.navigate("Intro")}
+          >
+            Get Started!</Text>
       </Pressable>
     </View>
   );
@@ -26,29 +30,28 @@ const Splashscreen = () => {
 const styles = StyleSheet.create({
   aaa2Icon: {
     position: "absolute",
-    top: 316,
-    left: 128,
+    top: 300,
+    left: 110,
     width: 159,
     height: 140,
   },
   rectangleView: {
     position: "absolute",
-    top: 0,
-    left: 0,
-    borderRadius: 20,
+    top: -100,
+    left: -12,
+    borderRadius: 30,
     backgroundColor: "rgba(63, 66, 74, 0.8)",
     width: 250,
     height: 60,
   },
   getStartedText: {
     position: "absolute",
-    top: 21,
-    left: 29,
-    fontSize: 32,
+    top: -78,
+    left: 54,
+    fontSize: 23,
     letterSpacing: -0.41,
     lineHeight: 22,
     fontWeight: "600",
-    fontFamily: "Poppins",
     color: "#fff",
     textAlign: "center",
   },

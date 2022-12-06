@@ -1,19 +1,38 @@
-import * as React from "react";
-import { useState } from "react";
-import {
-  Text,
-  StyleSheet,
-  Image,
-  Pressable,
-  TouchableHighlight,
-  View,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import {Text,StyleSheet,TouchableOpacity,Image, ScrollView,
+Pressable,TouchableHighlight,View,} from "react-native";
 import { TextInput as RNPTextInput } from "react-native-paper";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const WelcomeLoginHouseOwner = () => {
-  const [rectangleTextInput, setRectangleTextInput] = useState("password");
-  const navigation = useNavigation();
+import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword.js";
+import axios from "axios";
+import link from "../../../Link.js";
+
+const WelcomeLoginHouseOwner = ({ navigation}) => {
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+    useTogglePasswordVisibility();
+  const [onLogin, setOnLogin] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (value, name) => {
+    setOnLogin({
+      ...onLogin,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = () => {
+    axios
+      .post(`${link}/owner/login`, onLogin)
+      .then((response) => {
+        console.log(onLogin);
+        setOnLogin(response.data)
+        navigation.navigate("HomePageStudent")
+      })
+      .catch((error)=> console.log(error.message))
+  };
 
   return (
     <View style={styles.welcomeLoginHouseOwner}>
@@ -56,25 +75,34 @@ const WelcomeLoginHouseOwner = () => {
         style={styles.rectangleRNPTextInput}
         placeholder="Enter Your Password"
         mode="outlined"
-        value={rectangleTextInput}
-        onChangeText={setRectangleTextInput}
+        keyboardType="default"
+        minLength={8}
+        enablesReturnKeyAutomatically={true}
+        autoCorrect={false}
+        secureTextEntry={passwordVisibility}
         theme={{ colors: { background: "#d9d9d9" } }}
+        onChangeText={(text) => handleChange(text, "password")}
       />
-      <Image
+      <Pressable style={styles.eye} onPress={handlePasswordVisibility}>
+        <MaterialCommunityIcons name={rightIcon} size={30} color="#44b3cc" />
+      </Pressable>
+      {/* <Image
         style={styles.eyePasswordIcon}
         resizeMode="cover"
         source={require("../../../assets/homeOwner/Login/eyePassword.png")}
-      />
+      /> */}
       <RNPTextInput
         style={styles.rectangleRNPTextInput1}
         placeholder="Enter Your Email"
         mode="outlined"
+        keyboardType="default"
         theme={{ colors: { background: "#d9d9d9" } }}
+        onChangeText={(text) => handleChange(text, "email")}
       />
       <TouchableHighlight
         style={styles.rectangleTouchableHighlight}
         underlayColor="#fff"
-        onPress={() => navigation.navigate("HomePageStudent")}
+        onPress={() => handleSubmit()}
       >
         <View />
       </TouchableHighlight>
@@ -85,6 +113,7 @@ const WelcomeLoginHouseOwner = () => {
           onPress={() => navigation.navigate("HouseOwnerRegister")}
         >
           <Text style={styles.signupText}>Signup</Text>
+
         </Pressable>
         <Text
           style={styles.dontHaveAnAccount}
@@ -120,10 +149,9 @@ const styles = StyleSheet.create({
   },
   welcomeBackText1: {
     position: "absolute",
-    top: 256,
+    top: 190,
     left: 115,
     fontWeight: "700",
-    fontFamily: "Lato",
     color: "#696969",
     textAlign: "left",
   },
@@ -137,10 +165,10 @@ const styles = StyleSheet.create({
   },
   undrawSelectHouseReS1j91Icon: {
     position: "absolute",
-    top: 69,
-    left: 75,
-    width: 227,
-    height: 142,
+    top: 60,
+    left: 110,
+    width: 160,
+    height: 110,
     overflow: "hidden",
   },
   vectorIcon: {
@@ -188,7 +216,6 @@ const styles = StyleSheet.create({
     top: 443,
     left: 242,
     fontSize: 14,
-    fontFamily: "Lato",
     color: "#0092bf",
     textAlign: "left",
   },
@@ -201,13 +228,13 @@ const styles = StyleSheet.create({
     width: 312,
     height: 48,
   },
-  eyePasswordIcon: {
-    position: "absolute",
-    top: 395,
-    left: 310,
-    width: 24,
-    height: 24,
-  },
+  // eyePasswordIcon: {
+  //   position: "absolute",
+  //   top: 395,
+  //   left: 310,
+  //   width: 24,
+  //   height: 24,
+  // },
   rectangleRNPTextInput1: {
     position: "absolute",
     top: 302.5,
@@ -232,14 +259,12 @@ const styles = StyleSheet.create({
     left: 170,
     fontSize: 14,
     fontWeight: "600",
-    fontFamily: "Poppins",
     color: "rgba(255, 255, 255, 0.9)",
     textAlign: "left",
   },
   signupText: {
     fontSize: 14,
     fontWeight: "500",
-    fontFamily: "Poppins",
     color: "#2f89fc",
     textAlign: "left",
   },
@@ -254,7 +279,6 @@ const styles = StyleSheet.create({
     left: 0,
     fontSize: 14,
     fontWeight: "500",
-    fontFamily: "Poppins",
     color: "rgba(0, 0, 0, 0.8)",
     textAlign: "left",
   },
@@ -290,7 +314,6 @@ const styles = StyleSheet.create({
     top: 579,
     left: 185,
     fontSize: 14,
-    fontFamily: "Poppins",
     color: "rgba(0, 0, 0, 0.8)",
     textAlign: "left",
   },
@@ -309,7 +332,6 @@ const styles = StyleSheet.create({
     left: 131,
     fontSize: 14,
     fontWeight: "600",
-    fontFamily: "Poppins",
     color: "rgba(255, 255, 255, 0.9)",
     textAlign: "left",
   },
@@ -338,7 +360,6 @@ const styles = StyleSheet.create({
     left: 135,
     fontSize: 14,
     fontWeight: "600",
-    fontFamily: "Poppins",
     color: "rgba(0, 0, 0, 0.6)",
     textAlign: "left",
   },
@@ -355,6 +376,10 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     height: 852,
+  },
+  eye: {
+    left: "82%",
+    top: 398,
   },
 });
 

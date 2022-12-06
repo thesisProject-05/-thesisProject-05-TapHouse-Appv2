@@ -2,36 +2,15 @@ const Stack = createNativeStackNavigator();
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import Splashscreen from "./Splashscreen";
-import ValidationScrenHomeOwner from "./homeOwner/ValidationScreen2";
+import ValidationScrenHomeOwner from "./homeOwner/auth/ValidationScreen2";
 import HouseOwnerRegister from "./homeOwner/auth/OwnerSignupForm";
 import WelcomeLoginHouseOwner from "./homeOwner/auth/WelcomeLoginHouseOwner";
 import WelcomeLoginStudent from "./students/WelcomeLoginStudent";
 import ValidationScrenStudent from "./students/ValidationScreenStudent";
 import StudentRegister from "./students/RegisterPageVariant2";
-// import HouseOwnerRegister1 from "./screens/HouseOwnerRegister1";
-// import Profile from "./screens/Profile";
 import Profile from "./Profile";
-// import StudentValidation from "./screens/StudentValidation";
-// import HouseOwnerValidation from "./screens/HouseOwnerValidation";
-// import HouseOwnerLogin from "./screens/HouseOwnerLogin";
 import HomePageStudent from "./HomePage";
-// import StudentRegister1 from "./screens/StudentRegister1";
-// import WelcomeLoginStudent1 from "./screens/WelcomeLoginStudent1";
-// import RegisterPage from "./screens/RegisterPage";
-// import HomePic1 from "./screens/HomePic1";
-// import IPhone14Plus1 from "./screens/IPhone14Plus1";
-// import RegisterPageVariant2 from "./screens/RegisterPageVariant2";
-// import ProfileHomeOwner from "./screens/ProfileHomeOwner";
-// import FacebookF from "./screens/FacebookF";
-// import WelcomeLoginStudent2 from "./screens/WelcomeLoginStudent2";
-// import HomePageHouseOwner from "./screens/HomePageHouseOwner";
-// import WelcomeLoginHouseOwner1 from "./screens/WelcomeLoginHouseOwner1";
 import Intro from "./Intro";
-// import ValidationScren from "./screens/ValidationScren";
-// import ProfileHomeOwner1 from "./screens/ProfileHomeOwner1";
-// import HomeOwnerRegister from "./screens/HomeOwnerRegister";
-// import GroupScreen from "./screens/GroupScreen";
-// import IPhone141 from "./screens/IPhone141";
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { IconRegistry, ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
@@ -45,6 +24,7 @@ import {
   StyleSheet,
 } from "react-native";
 import ProfileView from "./ProfileView";
+import Detail from "./Detail";
 
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
@@ -91,8 +71,6 @@ const App = () => {
                 component={Intro}
                 options={{ headerShown: false }}
               />
-          
-              
               <Stack.Screen
                 name="WelcomeLoginHouseOwner"
                 component={WelcomeLoginHouseOwner}
@@ -107,8 +85,8 @@ const App = () => {
                 name="ValidationScrenHomeOwner"
                 component={ValidationScrenHomeOwner}
                 options={{ headerShown: false }}
-              /> 
-             
+              />
+
               <Stack.Screen
                 name="WelcomeLoginStudent"
                 component={WelcomeLoginStudent}
@@ -139,6 +117,12 @@ const App = () => {
                 component={Profile}
                 options={{ headerShown: false }}
               />
+               <Stack.Screen
+                name="Detail"
+                component={Detail}
+                options={{ headerShown: false }}
+              />
+
               {/* <Stack.Screen
                 name="HouseOwnerRegister1"
                 component={HouseOwnerRegister1}
