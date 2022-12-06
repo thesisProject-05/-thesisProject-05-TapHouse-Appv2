@@ -24,6 +24,7 @@ import {
   StyleSheet,
 } from "react-native";
 import ProfileView from "./ProfileView";
+import Detail from "./Detail";
 
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
@@ -67,7 +68,7 @@ const App = () => {
               />
               <Stack.Screen
                 name="Intro"
-                component={Intro }
+                component={Intro}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
@@ -116,7 +117,117 @@ const App = () => {
                 component={Profile}
                 options={{ headerShown: false }}
               />
-            </Stack.Navigator>
+               <Stack.Screen
+                name="Detail"
+                component={Detail}
+                options={{ headerShown: false }}
+              />
+
+              {/* <Stack.Screen
+                name="HouseOwnerRegister1"
+                component={HouseOwnerRegister1}
+                options={{ headerShown: false }}
+              />
+              
+              <Stack.Screen
+                name="HomeOwner"
+                component={HomeOwner}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="StudentValidation"
+                component={StudentValidation}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="HouseOwnerValidation"
+                component={HouseOwnerValidation}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="HouseOwnerLogin"
+                component={HouseOwnerLogin}
+                options={{ headerShown: false }}
+              />
+              
+              <Stack.Screen
+                name="StudentRegister1"
+                component={StudentRegister1}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="WelcomeLoginStudent1"
+                component={WelcomeLoginStudent1}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="RegisterPage"
+                component={RegisterPage}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="HomePic1"
+                component={HomePic1}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="IPhone14Plus1"
+                component={IPhone14Plus1}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="RegisterPageVariant2"
+                component={RegisterPageVariant2}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="ProfileHomeOwner"
+                component={ProfileHomeOwner}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="FacebookF"
+                component={FacebookF}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="WelcomeLoginStudent2"
+                component={WelcomeLoginStudent2}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="HomePageHouseOwner"
+                component={HomePageHouseOwner}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="WelcomeLoginHouseOwner1"
+                component={WelcomeLoginHouseOwner1}
+                options={{ headerShown: false }}
+              />
+              
+              <Stack.Screen
+                name="ValidationScren"
+                component={ValidationScren}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="ProfileHomeOwner1"
+                component={ProfileHomeOwner1}
+                options={{ headerShown: false }}
+              />
+              
+              <Stack.Screen
+                name="Group1"
+                component={GroupScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="IPhone141"
+                component={IPhone141}
+                options={{ headerShown: false }}
+              />*/}
+            </Stack.Navigator> 
           ) : null}
         </NavigationContainer>
       </ApplicationProvider>
