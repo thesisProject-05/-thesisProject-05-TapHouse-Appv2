@@ -22,12 +22,12 @@ const WelcomeLoginHouseOwner = ({ navigation}) => {
       [name]: value,
     });
   };
-console.log(onLogin);
+
   const handleSubmit = () => {
     axios
       .post(`${link}/owner/login`, onLogin)
       .then((response) => {
-        console.log(response);
+        console.log('test');
         setOnLogin(response.data)
         navigation.navigate("HomePageStudent")
       })
@@ -102,11 +102,12 @@ console.log(onLogin);
       <TouchableHighlight
         style={styles.rectangleTouchableHighlight}
         underlayColor="#fff"
-        onPress={() => handleSubmit()}
+        onPress={() => navigation.navigate("HomePageStudent")}
       >
         <View />
       </TouchableHighlight>
       <Text style={styles.buttonLoginText}>Login</Text>
+      
       <View style={styles.groupView}>
         <Pressable
           style={styles.signupPressable}
