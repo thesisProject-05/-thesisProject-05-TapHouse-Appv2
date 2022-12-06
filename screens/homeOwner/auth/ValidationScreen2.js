@@ -7,39 +7,37 @@ import React, {useState} from 'react';
 //   useClearByFocusCell,
 // } from 'react-native-confirmation-code-field';
 import axios from 'axios';
-import { useNavigation } from "@react-navigation/native";
-import link from "../.././Link.js";
+import link from "../../../Link.js";
 
-const ValidationScrenStudent = ({navigation,route}) => {
+const ValidationScrenHomeOwner = ({navigation,route}) => {
   // const navigation = useNavigation();
   const [verify,setVerify] = useState('');
   const checkCode = () =>{
     let verificationBody ={
       id:route.params.id,
-      activationCode:verify,
-      
+      activationCode:verify
     }
-    console.log(route.params,"<<===route.params")
-    axios.post(`${link}/student/check`,verificationBody.id).then((result)=>{
-    navigation.navigate("WelcomeLoginStudent")
+    console.log(route.params,"oooooo")
+    axios.post(`${link}/owner/check`,verificationBody.id).then((result)=>{
+    navigation.navigate("WelcomeLoginHouseOwner")
     alert('thank you for joining TapHome')
     }).catch((err)=>{console.log(err.message)})
     }
   return (
-    <View style={styles.validationScrenStudent}>
-<Text style={styles.title}>Verify your email</Text>
-<TextInput
+    <ScrollView>
+    <View style={styles.validationScrenHomeOwner}>
+       <Text style={styles.title}>Verify your email</Text>
+      <TextInput
         style={styles.rectangleTextInput}
-        placeholder="  Validate Your  Email "
+        placeholder="  Validate Your Email   "
         keyboardType="default"
         onChangeText={(text) => {setVerify(text)}}
       />
       <Image
-        style={styles.undrawCertificationReIfll1Icon}
+        style={styles.groupIcon}
         resizeMode="cover"
-        source={require("../../assets/ValidationScreen/undrawCertification.png")}
+        source={require("../../../assets/ValidationScreen2/group9.png")}
       />
-
       <Pressable
         style={styles.vectorPressable}
         onPress={() => navigation.goBack()}
@@ -47,7 +45,7 @@ const ValidationScrenStudent = ({navigation,route}) => {
         <Image
           style={styles.icon}
           resizeMode="cover"
-          source={require("../../assets/ValidationScreen/vector.png")}
+          source={require("../../../assets/ValidationScreen2/vector.png")}
         />
       </Pressable>
       <Pressable
@@ -56,12 +54,31 @@ const ValidationScrenStudent = ({navigation,route}) => {
       />
       <Text style={styles.confirmText}>confirm</Text>
      
-    
     </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  rectangleTextInput: {
+    position: "absolute",
+    top: "35.5%",
+    left: "10%",
+    borderRadius: 13,
+    backgroundColor: "#d9d9d9",
+    width: 295,
+    height: 44,
+  },
+  groupIcon: {
+    position: "absolute",
+    height: "15.91%",
+    width: "32.89%",
+    top: "7.5%",
+    left: "34.61%",
+    maxWidth: "100%",
+    overflow: "hidden",
+    maxHeight: "100%",
+  },
   icon: {
     height: "100%",
     width: "100%",
@@ -80,8 +97,8 @@ const styles = StyleSheet.create({
   },
   rectanglePressable: {
     position: "absolute",
-    top: 573,
-    left: 51,
+    top: "46%",
+    left: "10%",
     borderRadius: 13,
     backgroundColor: "#3f424a",
     width: 295,
@@ -89,31 +106,15 @@ const styles = StyleSheet.create({
   },
   confirmText: {
     position: "absolute",
-    top: 579,
-    left: 102,
+    top: "4%",
+    left: "37%",
     fontSize: 18,
     color: "#fff",
     textAlign: "center",
-    width: 188,
-    height: 22,
+    width: "20%",
+    height: "7.5%",
   },
-  undrawCertificationReIfll1Icon: {
-    position: "absolute",
-    top: 69,
-    left: 84,
-    width: 223,
-    height: 260,
-  },
-  rectangleTextInput: {
-    position: "absolute",
-    top: 457,
-    left: 51,
-    borderRadius: 13,
-    backgroundColor: "#d9d9d9",
-    width: 295,
-    height: 44,
-  },
-  validationScrenStudent: {
+  validationScrenHomeOwner: {
     position: "relative",
     backgroundColor: "#dfe8ea",
     flex: 1,
@@ -129,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ValidationScrenStudent;
+export default ValidationScrenHomeOwner;

@@ -1,4 +1,4 @@
-import * as React from "react";
+import  React,{useEffect,useState} from "react";
 import {
   Image,
   StyleSheet,
@@ -8,9 +8,19 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import link from "../Link"
 
 const HomePageStudent = () => {
   const navigation = useNavigation();
+  useEffect(()=>{
+allHouse()
+  })
+  const allHouse=()=>{
+    axios.get(`${link}/house/`).then((res)=>{
+      console.log(res.data)
+    })
+  }
 
   return (
     <ScrollView>
