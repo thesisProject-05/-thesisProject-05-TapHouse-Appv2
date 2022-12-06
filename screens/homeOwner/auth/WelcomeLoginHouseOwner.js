@@ -3,7 +3,7 @@ import {Text,StyleSheet,TouchableOpacity,Image, ScrollView,
 Pressable,TouchableHighlight,View,} from "react-native";
 import { TextInput as RNPTextInput } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword.js";
 import axios from "axios";
 import link from "../../../Link.js";
@@ -29,7 +29,7 @@ const WelcomeLoginHouseOwner = ({ navigation}) => {
       .then((response) => {
         console.log(onLogin);
         setOnLogin(response.data)
-        navigation.navigate("HomePageStudent")
+        navigation.navigate("HomePageOwner")
       })
       .catch((error)=> console.log(error.message))
   };

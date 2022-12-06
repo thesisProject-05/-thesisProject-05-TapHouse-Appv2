@@ -17,7 +17,7 @@ const HomePageStudent = () => {
       <View style={styles.homePageStudent}>
         <Pressable
           style={styles.ellipsePressable}
-          onPress={() => navigation.navigate("Profile")}
+          onPress={() => navigation.navigate("ProfileStudent")}
         >
           <Image
             style={styles.icon}

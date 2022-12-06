@@ -1,19 +1,11 @@
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, {useState} from "react";
 import axios from "axios";
-import {
-  SafeAreaView,
-  StyleSheet,
-  Pressable,
-  TextInput,
-  Image,
-  ScrollView,
-  View,
-  Text,
-  Button
-} from "react-native";
+import {SafeAreaView,StyleSheet,Pressable,TextInput,Image,ScrollView,View,Text,Button} from "react-native";
+import Link from "../.././Link.js";
+
+
 const House = ({navigation}) => {
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     photo: "",
     description: "",
     price: "",
@@ -30,7 +22,7 @@ const House = ({navigation}) => {
   };
     const handlePost = () =>{
       axios
-      .post(`http://192.168.97.99:3001/house/add/"hna idddddddd"`,values)
+      .post(`${Link}/house/add/"hna idddddddd"`,values)
       .then((response) => {
        console.log(response)
       })

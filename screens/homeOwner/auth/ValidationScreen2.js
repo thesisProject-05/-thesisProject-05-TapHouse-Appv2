@@ -1,134 +1,221 @@
-import {Animated, Image, SafeAreaView, Text, View,StyleSheet, Platform,TouchableOpacity,TextInput, Pressable, ScrollView} from 'react-native';
+import {Animated, Image, SafeAreaView, Text, View,StyleSheet, Platform,TouchableOpacity,TextInput} from 'react-native';
 import React, {useState} from 'react';
-// import {
-//   CodeField,
-//   Cursor,
-//   useBlurOnFulfill,
-//   useClearByFocusCell,
-// } from 'react-native-confirmation-code-field';
+
+import {
+  CodeField,
+  Cursor,
+  useBlurOnFulfill,
+  useClearByFocusCell,
+} from 'react-native-confirmation-code-field';
 import axios from 'axios';
 import link from "../../../Link.js";
+import { useNavigation } from "@react-navigation/native";
 
-const ValidationScrenHomeOwner = ({navigation,route}) => {
-  // const navigation = useNavigation();
-  const [verify,setVerify] = useState('');
-  const checkCode = () =>{
-    let verificationBody ={
-      id:route.params.id,
-      activationCode:verify,
-      email: navigation.state.params || {}
-    }
-    console.log(route.params,"oooooo")
-    axios.post(`${link}/owner/check`,verificationBody.id).then((result)=>{
-    navigation.navigate("WelcomeLoginHouseOwner")
-    alert('thank you for joining TapHome')
-    }).catch((err)=>{console.log(err.message)})
-    }
-  return (
-    <ScrollView>
-    <View style={styles.validationScrenHomeOwner}>
-       <Text style={styles.title}>Verify your email</Text>
-      <TextInput
-        style={styles.rectangleTextInput}
-        placeholder="  Validate Your Email   "
-        keyboardType="default"
-        onChangeText={(text) => {setVerify(text)}}
-      />
-      <Image
-        style={styles.groupIcon}
-        resizeMode="cover"
-        source={require("../../../assets/ValidationScreen2/group9.png")}
-      />
-      <Pressable
-        style={styles.vectorPressable}
-        onPress={() => navigation.goBack()}
-      >
-        <Image
-          style={styles.icon}
-          resizeMode="cover"
-          source={require("../../../assets/ValidationScreen2/vector.png")}
-        />
-      </Pressable>
-      <Pressable
-        style={styles.rectanglePressable}
-        onPress={() =>{checkCode()}}
-      />
-      <Text style={styles.confirmText}>confirm</Text>
-     
-    </View>
-    </ScrollView>
-  );
+
+ const CELL_SIZE = 30;
+ const CELL_BORDER_RADIUS = 8;
+ const DEFAULT_CELL_BG_COLOR = '#fff';
+ const NOT_EMPTY_CELL_BG_COLOR = '#3CB371';
+ const ACTIVE_CELL_BG_COLOR = '#f7fafe';
+
+const {Value, Text: AnimatedText} = Animated;
+
+const CELL_COUNT = 7;
+
+
+const animationsColor = [...new Array(CELL_COUNT)].map(() => new Value(0));
+const animationsScale = [...new Array(CELL_COUNT)].map(() => new Value(1));
+const animateCell = ({hasValue, index, isFocused}) => {
+  Animated.parallel([
+    Animated.timing(animationsColor[index], {
+      useNativeDriver: false,
+      toValue: isFocused ? 1 : 0,
+      duration: 250,
+    }),
+    Animated.spring(animationsScale[index], {
+      useNativeDriver: false,
+      toValue: hasValue ? 0 : 1,
+      duration: hasValue ? 300 : 250,
+    }),
+  ]).start();
 };
 
+const ValidationScrenHomeOwner = ({cb}) => {
+  const navigation = useNavigation();
+  const [value, setValue] = useState('');
+  const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
+  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+    ...value,
+    setValue,
+  });
+  const [em,setEm]=useState(cb)
+
+
+  const renderCell = ({index, symbol, isFocused}) => {
+    const hasValue = Boolean(symbol);
+    const animatedCellStyle = {
+      backgroundColor: hasValue
+        ? animationsScale[index].interpolate({
+            inputRange: [0, 1],
+            outputRange: [NOT_EMPTY_CELL_BG_COLOR, ACTIVE_CELL_BG_COLOR],
+          })
+        : animationsColor[index].interpolate({
+            inputRange: [0, 1],
+            outputRange: [DEFAULT_CELL_BG_COLOR, ACTIVE_CELL_BG_COLOR],
+          }),
+      borderRadius: animationsScale[index].interpolate({
+        inputRange: [0, 1],
+        outputRange: [CELL_SIZE, CELL_BORDER_RADIUS],
+      }),
+      transform: [
+        {
+          scale: animationsScale[index].interpolate({
+            inputRange: [0, 1],
+            outputRange: [0.2, 1],
+          }),
+        },
+      ],
+    };
+
+    // Run animation on next event loop tik
+    // Because we need first return new style prop and then animate this value
+    setTimeout(() => {
+      animateCell({hasValue, index, isFocused});
+    }, 0);
+
+    return (
+      <AnimatedText
+        key={index}
+        style={[styles.cell, animatedCellStyle]}
+        onLayout={getCellOnLayoutHandler(index)}>
+        {symbol || (isFocused ? <Cursor /> : null)}
+      </AnimatedText>
+    );
+  };
+
+  return (
+    <SafeAreaView style={styles.root}>
+      <Text style={styles.title}>Verification</Text>
+      <Image style={styles.icon} source={require("../../../assets/ValidationScreen2/group9.png")} />
+      <Text style={styles.subTitle}>
+        {cb.length? null : "Please enter the verification code we send to your email address:`Please enter your mail  and the verification code we send to your email address`"}
+      </Text>
+           {cb.length ? null :<View style={styles.inputView} >
+       <TextInput
+        style={styles.inputText}
+        placeholder="Email..."
+        placeholderTextColor="#003f5c"
+        onChangeText={text => setEm(text)} />
+         </View> }
+      <CodeField
+        ref={ref}
+        {...props}
+        value={value}
+        onChangeText={setValue}
+        cellCount={CELL_COUNT}
+        rootStyle={styles.codeFieldRoot}
+        textContentType="oneTimeCode"
+        renderCell={renderCell}
+      />
+      <TouchableOpacity style={styles.nextButton} onPress={()=>{
+        axios
+        .post(`${link}/owner/check`, {activationCode:value,email:em})
+        .then(resp=>{console.log(resp);
+          navigation.navigate("WelcomeLoginHouseOwner")}
+        
+        )
+        .catch(err=>console.log(err.message))
+      }}>
+        
+        <Text style={styles.nextButtonText}>Verify</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+  );
+};
 const styles = StyleSheet.create({
-  rectangleTextInput: {
-    position: "absolute",
-    top: "35.5%",
-    left: "10%",
-    borderRadius: 13,
-    backgroundColor: "#d9d9d9",
-    width: 295,
-    height: 44,
+  codeFieldRoot: {
+    height: CELL_SIZE,
+    marginTop: 30,
+    paddingHorizontal: 10,
+    justifyContent: 'center',
   },
-  groupIcon: {
-    position: "absolute",
-    height: "15.91%",
-    width: "32.89%",
-    top: "7.5%",
-    left: "34.61%",
-    maxWidth: "100%",
-    overflow: "hidden",
-    maxHeight: "100%",
+  cell: {
+    marginHorizontal: 8,
+    height: CELL_SIZE,
+    width: CELL_SIZE,
+    lineHeight: CELL_SIZE - 5,
+    ...Platform.select({web: {lineHeight: 65}}),
+    fontSize: 30,
+    textAlign: 'center',
+    borderRadius: CELL_BORDER_RADIUS,
+    color: '#3759b8',
+    backgroundColor: '#fff',
+
+    // IOS
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    // Android
+    elevation: 3,
   },
-  icon: {
-    height: "100%",
+  inputView: {
     width: "100%",
-    maxWidth: "100%",
-    overflow: "hidden",
-    maxHeight: "100%",
+    backgroundColor: "#fff",
+    borderBottomWidth:1,
+    borderRadius: 25,
+    height: 50,
+    marginBottom: 2,
+    justifyContent: "center",
+    padding: 20
   },
-  vectorPressable: {
-    position: "absolute",
-    left: "3.33%",
-    top: "6.5%",
-    right: "91.67%",
-    bottom: "90.05%",
-    width: "5%",
-    height: "3.45%",
+  inputText: {
+    height: 50,
+    color: "black"
   },
-  rectanglePressable: {
-    position: "absolute",
-    top: "46%",
-    left: "10%",
-    borderRadius: 13,
-    backgroundColor: "#3f424a",
-    width: 295,
-    height: 40,
-  },
-  confirmText: {
-    position: "absolute",
-    top: "4%",
-    left: "37%",
-    fontSize: 18,
-    color: "#fff",
-    textAlign: "center",
-    width: "20%",
-    height: "7.5%",
-  },
-  validationScrenHomeOwner: {
-    position: "relative",
-    backgroundColor: "#dfe8ea",
-    flex: 1,
-    width: "100%",
-    height: 844,
+  // =======================
+
+  root: {
+    minHeight: '100%',
+    padding: 20,
   },
   title: {
     fontWeight: "bold",
-    fontSize: 30,
-    color: "#000",
-    textAlign:'center',
-    top: "25%",
+    fontSize: 50,
+    color: "#3CB371",
+    marginBottom: 40,
+    textAlign:'center'
+  },
+  icon: {
+    width: 217 / 2.4,
+    height: 158 / 2,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  subTitle: {
+    paddingTop: 30,
+    paddingBottom:30,
+    color: '#3CB371',
+    textAlign: 'center',
+  },
+  nextButton: {
+    marginTop: 30,
+    borderRadius: 60,
+    height: 60,
+    backgroundColor: '#3CB371',
+    justifyContent: 'center',
+    minWidth: 300,
+    marginBottom: 100,
+  },
+  nextButtonText: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: '#fff',
+    fontWeight: '700',
   },
 });
-
 export default ValidationScrenHomeOwner;

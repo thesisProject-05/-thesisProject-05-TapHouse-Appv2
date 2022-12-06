@@ -1,39 +1,53 @@
-import {Animated, Image, SafeAreaView, Text, View,StyleSheet, Platform,TouchableOpacity,TextInput, Pressable, ScrollView} from 'react-native';
-import React, {useState} from 'react';
+import {
+  Animated,
+  Image,
+  SafeAreaView,
+  Text,
+  View,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+  TextInput,
+  Pressable,
+  ScrollView,
+} from "react-native";
+import React, { useState } from "react";
 // import {
 //   CodeField,
 //   Cursor,
 //   useBlurOnFulfill,
 //   useClearByFocusCell,
 // } from 'react-native-confirmation-code-field';
-import axios from 'axios';
+import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import link from "../.././Link.js";
 
-const ValidationScrenStudent = ({navigation,route}) => {
-  // const navigation = useNavigation();
-  const [verify,setVerify] = useState('');
-  const checkCode = () =>{
-    let verificationBody ={
-      id:route.params.id,
-      activationCode:verify,
-      email: route.params.email
-
-    }
-    console.log(route.params,"<<===route.params")
-    axios.post(`${link}/student/check`,verificationBody.id).then((result)=>{
-    navigation.navigate("WelcomeLoginStudent")
-    alert('thank you for joining TapHome')
-    }).catch((err)=>{console.log(err.message)})
-    }
+const ValidationScrenStudent = ({ email }) => {
+  console.log(email);
+  const navigation = useNavigation();
+  const [verify, setVerify] = useState("");
+  const checkCode = () => {
+    axios
+      .post(`${link}/student/check/${email}`)
+      .then((result) => {
+        navigation.navigate("WelcomeLoginStudent");
+        alert("thank you for joining TapHome");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  console.log(email);
   return (
     <View style={styles.validationScrenStudent}>
-<Text style={styles.title}>Verify your email</Text>
-<TextInput
+      <Text style={styles.title}>Verify your email</Text>
+      <TextInput
         style={styles.rectangleTextInput}
         placeholder="  Validate Your  Email "
         keyboardType="default"
-        onChangeText={(text) => {setVerify(text)}}
+        onChangeText={(text) => {
+          setVerify(text);
+        }}
       />
       <Image
         style={styles.undrawCertificationReIfll1Icon}
@@ -53,11 +67,11 @@ const ValidationScrenStudent = ({navigation,route}) => {
       </Pressable>
       <Pressable
         style={styles.rectanglePressable}
-        onPress={() =>{checkCode()}}
+        onPress={() => {
+          checkCode();
+        }}
       />
       <Text style={styles.confirmText}>confirm</Text>
-     
-    
     </View>
   );
 };
@@ -125,7 +139,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 30,
     color: "#000",
-    textAlign:'center',
+    textAlign: "center",
     top: "25%",
   },
 });

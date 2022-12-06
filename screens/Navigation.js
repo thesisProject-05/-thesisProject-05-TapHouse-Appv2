@@ -1,5 +1,5 @@
 const Stack = createNativeStackNavigator();
-import * as React from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import Splashscreen from "./Splashscreen";
 import ValidationScrenHomeOwner from "./homeOwner/auth/ValidationScreen2";
@@ -8,26 +8,22 @@ import WelcomeLoginHouseOwner from "./homeOwner/auth/WelcomeLoginHouseOwner";
 import WelcomeLoginStudent from "./students/WelcomeLoginStudent";
 import ValidationScrenStudent from "./students/ValidationScreenStudent";
 import StudentRegister from "./students/RegisterPageVariant2";
-import Profile from "./Profile";
-import HomePageStudent from "./HomePage";
+import HomePageStudent from "./HomePageStudent";
+import HomePageOwner from "./HomePageOwner";
 import Intro from "./Intro";
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { IconRegistry, ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {
-  View,
-  Text,
-  Pressable,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { StyleSheet } from "react-native";
 import ProfileView from "./ProfileView";
+import House from "./addHouse/House";
 
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
-
+  const [email, setEmail] = useState("");
+  const [mail, setMail] = useState("");
   function MaterialIcon({ name, style }) {
     const { height, tintColor, ...iconStyle } = StyleSheet.flatten(style);
     return (
@@ -53,6 +49,13 @@ const App = () => {
     name: "material",
     icons: createIconsMap(),
   };
+  const getEmail = (x) => {
+    setEmail(x);
+  };
+  const getMail = (y) => {
+    setMail(y);
+  };
+
   return (
     <>
       <IconRegistry icons={[MaterialIconsPack]} />
@@ -67,7 +70,7 @@ const App = () => {
               />
               <Stack.Screen
                 name="Intro"
-                component={Intro }
+                component={Intro}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
@@ -77,13 +80,15 @@ const App = () => {
               />
               <Stack.Screen
                 name="HouseOwnerRegister"
-                component={HouseOwnerRegister}
+               
                 options={{ headerShown: false }}
+                children={() => <HouseOwnerRegister cb={getMail} />}
               />
               <Stack.Screen
                 name="ValidationScrenHomeOwner"
-                component={ValidationScrenHomeOwner}
+                // component={ValidationScrenHomeOwner}
                 options={{ headerShown: false }}
+                children={() => <ValidationScrenHomeOwner cb={mail} />}
               />
 
               <Stack.Screen
@@ -93,17 +98,24 @@ const App = () => {
               />
               <Stack.Screen
                 name="StudentRegister"
-                component={StudentRegister}
+                // component={StudentRegister}
                 options={{ headerShown: false }}
+                children={() => <StudentRegister cb={getEmail} />}
               />
               <Stack.Screen
                 name="ValidationScrenStudent"
-                component={ValidationScrenStudent}
+                // component={ValidationScrenStudent }
                 options={{ headerShown: false }}
+                children={() => <ValidationScrenStudent email={email} />}
               />
               <Stack.Screen
                 name="HomePageStudent"
                 component={HomePageStudent}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="HomePageOwner"
+                component={HomePageOwner}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
@@ -112,8 +124,8 @@ const App = () => {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="Profile"
-                component={Profile}
+                name="House"
+                component={House}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>
