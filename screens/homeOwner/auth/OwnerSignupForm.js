@@ -7,6 +7,7 @@ import {
   Pressable,
   TextInput,
   View,
+  ScrollView
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -22,8 +23,9 @@ const HouseOwnerRegister = () => {
   ]);
   const [rectangleDatePicker, setRectangleDatePicker] = useState(undefined);
   const navigation = useNavigation();
-
+console.log(rectangleDatePicker);
   return (
+    <ScrollView>
     <View style={styles.houseOwnerRegisterView}>
       <Image
         style={styles.undrawAccessAccountRe8spmIcon}
@@ -125,6 +127,7 @@ const HouseOwnerRegister = () => {
         />
       </Pressable>
     </View>
+    </ScrollView>
   );
 };
 
