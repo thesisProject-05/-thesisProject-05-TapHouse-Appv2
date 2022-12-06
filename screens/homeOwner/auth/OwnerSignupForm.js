@@ -45,6 +45,7 @@ const HouseOwnerRegister = ({ navigation }) => {
         console.log(response.data.insertId, "=====id");
         navigation.navigate("ValidationScrenHomeOwner", {
           id: response.data.insertId,
+          email: response.data.email
         });
         // console.log(response,"=>respone");
         console.log(response.data, "the data received");

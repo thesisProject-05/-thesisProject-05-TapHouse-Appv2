@@ -15,7 +15,8 @@ const ValidationScrenHomeOwner = ({navigation,route}) => {
   const checkCode = () =>{
     let verificationBody ={
       id:route.params.id,
-      activationCode:verify
+      activationCode:verify,
+      email: navigation.state.params || {}
     }
     console.log(route.params,"oooooo")
     axios.post(`${link}/owner/check`,verificationBody.id).then((result)=>{

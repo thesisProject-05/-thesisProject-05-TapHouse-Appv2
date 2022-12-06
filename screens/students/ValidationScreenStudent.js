@@ -17,7 +17,8 @@ const ValidationScrenStudent = ({navigation,route}) => {
     let verificationBody ={
       id:route.params.id,
       activationCode:verify,
-      
+      email: route.params.email
+
     }
     console.log(route.params,"<<===route.params")
     axios.post(`${link}/student/check`,verificationBody.id).then((result)=>{
