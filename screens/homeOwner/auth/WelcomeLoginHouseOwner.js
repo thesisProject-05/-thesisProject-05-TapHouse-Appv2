@@ -3,12 +3,14 @@ import {Text,StyleSheet,TouchableOpacity,Image, ScrollView,
 Pressable,TouchableHighlight,View,} from "react-native";
 import { TextInput as RNPTextInput } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from "@react-navigation/native";
 import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword.js";
 import axios from "axios";
 import link from "../../../Link.js";
 
-const WelcomeLoginHouseOwner = ({ navigation}) => {
+const WelcomeLoginHouseOwner = ({cb1}) => {
+  const navigation = useNavigation();
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
   const [onLogin, setOnLogin] = useState({
@@ -27,13 +29,13 @@ const WelcomeLoginHouseOwner = ({ navigation}) => {
     axios
       .post(`${link}/owner/login`, onLogin)
       .then((response) => {
-        console.log('test');
+        console.log(onLogin);
         setOnLogin(response.data)
         navigation.navigate("HomePageStudent")
       })
       .catch((error)=> console.log(error.message))
   };
-
+// console.log(cb1);
   return (
     <View style={styles.welcomeLoginHouseOwner}>
       <Text style={styles.welcomeBackText1}>
@@ -102,12 +104,11 @@ const WelcomeLoginHouseOwner = ({ navigation}) => {
       <TouchableHighlight
         style={styles.rectangleTouchableHighlight}
         underlayColor="#fff"
-        onPress={() => navigation.navigate("HomePageStudent")}
+        onPress={() => handleSubmit()}
       >
         <View />
       </TouchableHighlight>
       <Text style={styles.buttonLoginText}>Login</Text>
-      
       <View style={styles.groupView}>
         <Pressable
           style={styles.signupPressable}

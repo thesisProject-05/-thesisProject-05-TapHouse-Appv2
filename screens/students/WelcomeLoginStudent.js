@@ -25,9 +25,9 @@ const WelcomeLoginStudent = ({ navigation}) => {
       axios
         .post(`${link}/student/login`, onLogin)
         .then((response) => {
-          console.log(response.status);
+          console.log(response.data);
           setOnLogin(response.data)
-          navigation.navigate("HomePageStudent")
+          navigation.navigate("HomePage")
           console.log(onLogin,"2")
         })
         .catch((error)=> console.log(error.message))

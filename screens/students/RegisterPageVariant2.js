@@ -16,9 +16,11 @@ import * as ImagePicker from 'expo-image-picker';
 import axios from "axios";
 import {useTogglePasswordVisibility} from "../../hooks/TogglePassword.js";
 import link from "../.././Link.js"
+import { log } from "react-native-reanimated";
+import { useNavigation } from "@react-navigation/native";
 
-
-const StudentRegister = ({navigation,route}) => {
+const StudentRegister = (props,{route}) => {
+  const navigation = useNavigation();
    const { passwordVisibility, rightIcon, handlePasswordVisibility } =
        useTogglePasswordVisibility();
 
@@ -40,8 +42,9 @@ const StudentRegister = ({navigation,route}) => {
         setData({
           ...data,[name]: value
         })
+        props.cb(data.email)
       };
-console.log(data,'theData');
+
       const handleSubmit = () => {
         axios.post(`${link}/student/register`,data)
             .then((response) => {console.log(response.data.insertId)
@@ -57,6 +60,7 @@ console.log(data,'theData');
             })
             .catch((error) => console.log(error));
         };
+       
   return (
     <ScrollView >
     <View style={styles.studentRegisterView}>
@@ -116,7 +120,9 @@ console.log(data,'theData');
         placeholder="  Email"
         autoCapitalize="none"
         keyboardType="default"
-        onChangeText={text=>handleChange(text,"email")}
+        onChangeText={text=>{
+       
+          handleChange(text,"email")}}
       />
       <TextInput
       required

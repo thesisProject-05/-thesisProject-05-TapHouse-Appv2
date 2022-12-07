@@ -12,9 +12,11 @@ import {
   Text,
   Button
 } from "react-native";
+import link from "../../Link";
+
 const House = ({navigation}) => {
   const [values, setValues] = React.useState({
-    photo: "",
+    photo: "https://media.istockphoto.com/id/1211174464/photo/beautiful-residential-home-exterior-on-bright-sunny-day-with-green-grass-and-blue-sky.jpg?s=612x612&w=0&k=20&c=h0XtWGD8asz_hfDVus7SWwOrtAFlZYfr7wdStKCQv14=",
     description: "",
     price: "",
     latittude: "",
@@ -30,18 +32,18 @@ const House = ({navigation}) => {
   };
     const handlePost = () =>{
       axios
-      .post(`http://192.168.97.99:3001/house/add/"hna idddddddd"`,values)
+      .post(`${link}:3001/house/add/${id}`,values)
       .then((response) => {
        console.log(response)
+       navigation.navigate("HomePageStudent")
+      
       })
       .catch((err) => console.log(err));
   }
-    
-      
 
       return (
         <ScrollView>
-          <View >           
+          <View style={{top:40}}>           
             <TextInput
             placeholder="description"
               style={styles.input}
@@ -74,12 +76,13 @@ const House = ({navigation}) => {
           />
           <Text style={styles.uploadYourPicture}>{`Upload your picture `}</Text>
           
-
+          <Pressable
+          onPress={()=>navigation.navigate('GetLocation')}>
           <Image
           style={styles.map}
           resizeMode="cover"
           source={require("../../assets/House/map.png")}
-        />
+        /></Pressable>
         <Text style={styles.PictureMap}>{`maps`}</Text>
 
         <Pressable
@@ -87,13 +90,10 @@ const House = ({navigation}) => {
       >
         <View style={styles.rectangleView} />
         <Text style={styles.getConfirmText}
-          onPress={() => navigation.navigate("Profile")}
+          onPress={() => handlePost()}
           >
-            Confirm</Text>
-      </Pressable>
-
-
-          
+          Confirm</Text>
+      </Pressable>    
           <View style={styles.groupView}>
           </View>
          </View>
@@ -142,15 +142,15 @@ const House = ({navigation}) => {
     },
     icons8PhotoGallery1001:{
     width:105,
-    height:150,
+    height:120,
     left:25,
 
     },
     uploadYourPicture:{
       top: -16,
-      left:35,
+      left:22,
       right:1,
-      fontSize: 10,
+      fontSize: 16,
       textShadowColor: "rgba(0, 0, 0, 0.25)",
     },
     map:{
@@ -160,15 +160,15 @@ const House = ({navigation}) => {
       height: 70,
     },
     PictureMap:{
-      top: 60,
-      left: 200,
-      fontSize: 1,
+      top: -110,
+      left: 250,
+      fontSize: 16,
       textShadowColor: "rgba(0, 0, 0, 0.25)",
 
     },
     rectangleView: {
       position: "absolute",
-      bottom: -23,
+      bottom: -42,
       borderRadius: 20,
       backgroundColor: "rgba(63, 66, 74, 0.8)",
       width: 150,
@@ -180,7 +180,7 @@ const House = ({navigation}) => {
     },
     getConfirmText: {
      position: "absolute",
-    bottom: 40,
+    bottom: 23,
    right:125,
     getStartedText: {
     position: "absolute",

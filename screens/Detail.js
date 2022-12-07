@@ -7,110 +7,123 @@ import {
   Text,
   TouchableHighlight,
   ScrollView,
-  
+
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Linking } from 'react-native'
+import axios from "axios";
+import link from "../Link";
 
 const Detail = (props) => {
   const navigation = useNavigation();
-console.log(props.route.params.id,'props');
+  const [data, setData] = React.useState([])
+  const [idOwner, setIdOwner] = React.useState(Number)
+  const [ownerData, setOwnerData] = React.useState([])
+
+  let id = props.route.params.id
+  console.log(idOwner, 'thedata')
+  console.log(ownerData, '');
+
+  React.useEffect(() => {
+
+    getOneHouse()
+  }, [])
+  const getOneHouse = () => {
+    axios.get(`${link}/house/${id}`).then((res) => {
+
+      axios.get(`${link}/owner/${res.data[0].homeOwner_idhomeOwner}`).then((response) => {
+        setData(res.data[0]),
+
+          setOwnerData(response.data[0])
+      })
+
+    })
+  }
   return (
-    
-   <ScrollView>
-    <View style={styles.detailView}>
-      <Pressable
-        style={styles.ellipsePressable}
-        onPress={() => navigation.navigate("ProfileView")}
-      >
+
+    <ScrollView>
+      <View style={styles.detailView}>
+        <Pressable
+          style={styles.ellipsePressable}
+          onPress={() => navigation.navigate("Profile")}
+        >
+          <Image
+            style={styles.icon}
+            resizeMode="cover"
+            source={require("../assets/Detail/ellipse17.png")}
+          />
+        </Pressable>
+
+        <Pressable
+          style={styles.vector21Pressable}
+          onPress={() => navigation.navigate("HomePageStudent")}
+        >
+          <Image
+            style={styles.icon1}
+            resizeMode="cover"
+            source={require("../assets/Detail/12.png")}
+          />
+        </Pressable>
+        <View style={styles.maskGroupView} />
+        <Text style={styles.rDText}>{ }</Text>
+        <TouchableHighlight
+          style={styles.rectangleTouchableHighlight}
+          underlayColor="#fff"
+          onPress={() => { }}
+        >
+          <View />
+        </TouchableHighlight>
+        <Text style={styles.bookText}>{`Book `}</Text>
         <Image
-          style={styles.icon}
+          style={styles.iconLocationPin}
           resizeMode="cover"
-          source={require("../assets/Detail/ellipse17.png")}
+          source={require("../assets/Detail/location.png")}
         />
-      </Pressable>
-      <Image
-        style={styles.iconsaxLinearhome}
-        resizeMode="cover"
-        source={require("../assets/Detail/iconsHome.png")}
-      />
-      <Image
-        style={styles.iconsaxLinearmessage}
-        resizeMode="cover"
-        source={require("../assets/Detail/iconsMessage.png")}
-      />
-      <Image
-        style={styles.iconsaxLinearblogger}
-        resizeMode="cover"
-        source={require("../assets/Detail/iconsBlog.png")}
-      />
-      <Pressable
-        style={styles.vector21Pressable}
-        onPress={() => navigation.navigate("HomePageStudent")}
-      >
         <Image
-          style={styles.icon1}
+          style={styles.images21Icon}
           resizeMode="cover"
-          source={require("../assets/Detail/12.png")}
+          source={{ uri: data.photo }}
         />
-      </Pressable>
-      <View style={styles.maskGroupView} />
-      <Text style={styles.rDText}>{`RD `}</Text>
-      <TouchableHighlight
-        style={styles.rectangleTouchableHighlight}
-        underlayColor="#fff"
-        onPress={() => {}}
-      >
-        <View />
-      </TouchableHighlight>
-      <Text style={styles.bookText}>{`Book `}</Text>
-      <Image
-        style={styles.iconLocationPin}
-        resizeMode="cover"
-        source={require("../assets/Detail/location.png")}
-      />
-      <Image
-        style={styles.images21Icon}
-        resizeMode="cover"
-        source={require("../assets/Detail/images2.png")}
-      />
-      <View style={styles.frameView}>
-        <View style={styles.groupView}>
-          <Text style={styles.homeOwnerAhmedZakria}>
-            <Text style={styles.homeOwnerAhmedContainer}>
-              {`Home owner: `}
-              <Text style={styles.ahmedZakriaText}>Ahmed zakria</Text>
+        <View style={styles.frameView}>
+          <View style={styles.groupView}>
+            <Text style={styles.homeOwnerAhmedZakria}>
+              <Text style={styles.homeOwnerAhmedContainer}>
+                {`Home owner: `}
+                <Text style={styles.ahmedZakriaText}>{ownerData.fullName}</Text>
+              </Text>
+            </Text>
+            <Image
+              style={styles.vectorIcon}
+              resizeMode="cover"
+              source={require("../assets/Detail/user.png")}
+            />
+          </View>
+          <Pressable
+            onPress={() => alert('test')}>
+            <Image
+              style={styles.iconsaxLinearcallcalling}
+              resizeMode="cover"
+              source={require("../assets/Detail/callcalling.png")}
+            /></Pressable>
+        </View>
+        <View style={styles.frameView1}>
+          <Text style={styles.descriptionText}>Description</Text>
+          <Text style={styles.darArianaOneRoomWithBathr}>
+            {data.description}
+            <Text style={styles.oneRoomWith}>
+              { }
             </Text>
           </Text>
-          <Image
-            style={styles.vectorIcon}
-            resizeMode="cover"
-            source={require("../assets/Detail/user.png")}
-          />
+          <View style={styles.lineView} />
         </View>
-        <Image
-          style={styles.iconsaxLinearcallcalling}
-          resizeMode="cover"
-          source={require("../assets/Detail/callcalling.png")}
-        />
+        <View style={styles.frameView2}>
+          <Text style={styles.Ariana}>{`${data.city}  ${data.adress}`}</Text>
+
+        </View>
+        <Text style={styles.Price}>Price</Text>
+        <Text style={styles.text}>{data.price}</Text>
+        <Text style={styles.tNDText}>.TND</Text>
       </View>
-      <View style={styles.frameView1}>
-        <Text style={styles.descriptionText}>Description :</Text>
-        <Text style={styles.darArianaOneRoomWithBathr}>
-          <Text style={styles.darAriana}>{`dar ariana `}</Text>
-          <Text style={styles.oneRoomWith}>
-            one room with bathroom and kitchen.
-          </Text>
-        </Text>
-        <View style={styles.lineView} />
-      </View>
-      <View style={styles.frameView2}>
-      <Text style={styles.Ariana}>{`Ariana, dara Al krama `}</Text>
-        <Text style={styles.jan12022}>Jan 1, 2022</Text>
-      </View>
-      <Text style={styles.Price}>Price</Text>
-      <Text style={styles.text}>250,000</Text>
-      <Text style={styles.tNDText}>.TND</Text>
-    </View>
     </ScrollView>
   );
 };
@@ -239,7 +252,7 @@ const styles = StyleSheet.create({
     top: 6,
     left: 43,
     fontSize: 10,
-    
+
     color: "#333",
     textAlign: "left",
     display: "flex",
@@ -282,13 +295,13 @@ const styles = StyleSheet.create({
     height: 45,
     overflow: "hidden",
   },
-  Ariana:{
+  Ariana: {
     position: "absolute",
-width: 184,
-left:-239,
-height: 22,
-fontWeight: "500",
-fontsize: 18,
+    width: 184,
+    left: -239,
+    height: 22,
+    fontWeight: "500",
+    fontsize: 18,
 
   },
   descriptionText: {
@@ -297,7 +310,7 @@ fontsize: 18,
     left: 6,
     fontSize: 18,
     fontWeight: "500",
-  
+
     color: "#000",
     textAlign: "left",
   },
@@ -367,10 +380,10 @@ fontsize: 18,
     color: "#6f6f6f",
     textAlign: "left",
   },
-  Price:{
+  Price: {
     position: "absolute",
-    top:435,
-    left:39,
+    top: 435,
+    left: 39,
     width: 49,
     height: 24,
     fontWeight: "500",
