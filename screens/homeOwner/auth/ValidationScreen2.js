@@ -8,7 +8,7 @@ import {
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
 import axios from 'axios';
-import link from "../.././Link.js";
+import link from "../../../Link.js";
 // import { useNavigation } from "@react-navigation/native";
 
 
@@ -40,7 +40,7 @@ const animateCell = ({hasValue, index, isFocused}) => {
   ]).start();
 };
 
-const ValidationScrenStudent = (props,{ route, navigation,cb }) => {
+const ValidationScrenHomeOwner = (props,{ route, navigation,cb }) => {
   // const navigation = useNavigation();
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
@@ -95,7 +95,7 @@ const ValidationScrenStudent = (props,{ route, navigation,cb }) => {
   return (
     <SafeAreaView style={styles.root}>
       <Text style={styles.title}>Verification</Text>
-      <Image style={styles.icon} source={require("../.././assets/ValidationScreen/undrawCertification.png")} />
+      <Image style={styles.icon} source={require("../../../assets/ValidationScreen2/group9.png")} />
       <Text style={styles.subTitle}>
         {cb.length? null : "Please enter the verification code we send to your email address:`Please enter your mail  and the verification code we send to your email address`"}
       </Text>
@@ -118,9 +118,9 @@ const ValidationScrenStudent = (props,{ route, navigation,cb }) => {
       />
       <TouchableOpacity style={styles.nextButton} onPress={()=>{
         axios
-        .post(`${link}/student/check`, {activationCode:value,email:em, id: id})
+        .post(`${link}/owner/check`, {activationCode:value,email:em, id: id})
         .then(resp=>{console.log(resp);
-          navigation.navigate("WelcomeLoginStudent")}
+          navigation.navigate("WelcomeLoginHouseOwner")}
         
         )
         .catch(err=>console.log(err.message))
@@ -216,4 +216,4 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
-export default ValidationScrenStudent;
+export default ValidationScrenHomeOwner;

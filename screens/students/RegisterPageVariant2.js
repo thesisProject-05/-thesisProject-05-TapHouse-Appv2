@@ -1,47 +1,68 @@
-import * as React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   StyleSheet,
   Image,
   Pressable,
   TextInput,
+  TouchableOpacity,
   View,
+  ScrollView 
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { Datepicker as RNKDatepicker } from "@ui-kitten/components";
 import DropDownPicker from "react-native-dropdown-picker";
+import * as ImagePicker from 'expo-image-picker';
 
-const StudentRegister = () => {
-  const [rectangleDatePicker, setRectangleDatePicker] = useState(undefined);
-  const [rectangleDropdownOpen, setRectangleDropdownOpen] = useState(false);
-  const [rectangleDropdownValue, setRectangleDropdownValue] = useState("");
-  const [rectangleDropdownItems, setRectangleDropdownItems] = useState([
-    { value: "Male", label: "Male" },
-    { value: "Female", label: "Female" },
-  ]);
-  const [rectangleDropdown1Open, setRectangleDropdown1Open] = useState(false);
-  const [rectangleDropdown1Value, setRectangleDropdown1Value] = useState("");
-  const [rectangleDropdown1Items, setRectangleDropdown1Items] = useState([
-    { value: "Ariena", label: "Ariena" },
-    { value: "Manouba", label: "Manouba" },
-    { value: "Tunis", label: "Tunis" },
-  ]);
-  const [rectangleDropdown2Open, setRectangleDropdown2Open] = useState(false);
-  const [rectangleDropdown2Value, setRectangleDropdown2Value] = useState("");
-  const [rectangleDropdown2Items, setRectangleDropdown2Items] = useState([
-    { value: "ISG", label: "ISG" },
-    { value: "IHEC", label: "IHEC" },
-  ]);
-  const [rectangleDropdown3Open, setRectangleDropdown3Open] = useState(false);
-  const [rectangleDropdown3Value, setRectangleDropdown3Value] = useState("");
-  const [rectangleDropdown3Items, setRectangleDropdown3Items] = useState([
-    { value: "House", label: "House" },
-    { value: "Residence", label: "Residence" },
-  ]);
+import axios from "axios";
+import {useTogglePasswordVisibility} from "../../hooks/TogglePassword.js";
+import link from "../.././Link.js"
+import { log } from "react-native-reanimated";
+import { useNavigation } from "@react-navigation/native";
+
+const StudentRegister = (props,{route}) => {
   const navigation = useNavigation();
+   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+       useTogglePasswordVisibility();
 
+       const [data, setData] = useState({
+        fullName: "",
+        email: "",
+        password: "",
+         phoneNumber: "",
+        dateOfBirth: "",
+        gender:"",
+        lookingFor:"",
+        city: "",
+        cin: "",
+        photo: "https://media.istockphoto.com/id/1297349747/photo/hot-air-balloons-flying-over-the-botan-canyon-in-turkey.jpg?b=1&s=170667a&w=0&k=20&c=1oQ2rt0FfJFhOcOgJ8hoaXA5gY4225BA4RdOP1RRBz4=",
+        maxBudget:"",
+
+      });
+      const handleChange = (value,name) => {
+        setData({
+          ...data,[name]: value
+        })
+        props.cb(data.email)
+      };
+
+      const handleSubmit = () => {
+        axios.post(`${link}/student/register`,data)
+            .then((response) => {console.log(response.data.insertId)
+              
+             
+              // setData(response.data);
+              navigation.navigate("ValidationScrenStudent", {
+                id: response.data.insertId,
+                
+              });
+              console.log(response.data, "=====id");
+              
+            })
+            .catch((error) => console.log(error));
+        };
+       
   return (
+    <ScrollView >
     <View style={styles.studentRegisterView}>
       <Text style={styles.createNewAccount}>{`Create new  account `}</Text>
       <Image
@@ -75,89 +96,83 @@ const StudentRegister = () => {
         />
       </Pressable>
       <TextInput
+      required
         style={styles.rectangleTextInput}
         placeholder="  Full name "
         keyboardType="default"
+        onChangeText={text=>handleChange(text,"fullName")}
       />
       <TextInput
+      required
         style={styles.rectangleTextInput1}
         placeholder="  Password"
+        autoCapitalize="none"
+        minLength={8}
+        enablesReturnKeyAutomatically={true}
+        autoCorrect={false}
+        secureTextEntry={passwordVisibility}
         keyboardType="default"
+        onChangeText={text=>handleChange(text,"password")}
       />
       <TextInput
+      required
         style={styles.rectangleTextInput2}
         placeholder="  Email"
+        autoCapitalize="none"
         keyboardType="default"
+        onChangeText={text=>{
+       
+          handleChange(text,"email")}}
       />
       <TextInput
+      required
         style={styles.rectangleTextInput3}
         placeholder="  Phone number "
         keyboardType="phone-pad"
+        onChangeText={text=>handleChange(text,"phoneNumber")}
       />
-      <RNKDatepicker
-        style={styles.rectangleRNKDatepicker}
-        placeholder="Date of birth "
-        date={rectangleDatePicker}
-        onSelect={setRectangleDatePicker}
-        controlStyle={styles.rectangleDatePickerValue}
-      />
-      <View style={styles.rectangleView}>
-        <DropDownPicker
-          style={styles.dropDownPicker}
-          open={rectangleDropdownOpen}
-          setOpen={setRectangleDropdownOpen}
-          value={rectangleDropdownValue}
-          setValue={setRectangleDropdownValue}
-          placeholder="Gender"
-          items={rectangleDropdownItems}
-          dropDownContainerStyle={styles.rectangleDropdowndropDownContainer}
-        />
-      </View>
-      <View style={styles.rectangleView1}>
-        <DropDownPicker
-          style={styles.dropDownPicker1}
-          open={rectangleDropdown1Open}
-          setOpen={setRectangleDropdown1Open}
-          value={rectangleDropdown1Value}
-          setValue={setRectangleDropdown1Value}
-          placeholder="City "
-          items={rectangleDropdown1Items}
-          dropDownContainerStyle={styles.rectangleDropdown1dropDownContainer}
-        />
-      </View>
-      <View style={styles.rectangleView2}>
-        <DropDownPicker
-          style={styles.dropDownPicker2}
-          open={rectangleDropdown2Open}
-          setOpen={setRectangleDropdown2Open}
-          value={rectangleDropdown2Value}
-          setValue={setRectangleDropdown2Value}
-          placeholder="University"
-          items={rectangleDropdown2Items}
-          dropDownContainerStyle={styles.rectangleDropdown2dropDownContainer}
-        />
-      </View>
-      <View style={styles.rectangleView3}>
-        <DropDownPicker
-          style={styles.dropDownPicker3}
-          open={rectangleDropdown3Open}
-          setOpen={setRectangleDropdown3Open}
-          value={rectangleDropdown3Value}
-          setValue={setRectangleDropdown3Value}
-          placeholder="Looking for "
-          items={rectangleDropdown3Items}
-          dropDownContainerStyle={styles.rectangleDropdown3dropDownContainer}
-        />
-      </View>
       <TextInput
-        style={styles.rectangleTextInput4}
-        placeholder="  C.I.N"
+        style={styles.birthDate}
+        placeholder="  Date of birth "
+        keyboardType="phone-pad"
+        onChangeText={text=>handleChange(text,"dateOfBirth")}
+      />
+      <TextInput
+        style={styles.genderText}
+        placeholder="   gender "
         keyboardType="default"
+        onChangeText={text=>handleChange(text,"gender")}
       />
       <TextInput
-        style={styles.rectangleTextInput5}
+        style={styles.cityText}
+        placeholder="   city"
+        keyboardType="default"
+        onChangeText={text=>handleChange(text,"city")}
+      />
+      {/* <TextInput
+        style={styles.cityText}
+        placeholder="   university "
+        keyboardType="default"
+      /> */}
+      <TextInput
+        style={styles.lookingForText}
+        placeholder="   Looking for"
+        keyboardType="default"
+        onChangeText={text=>handleChange(text,"lookingFor")}
+      />
+       <TextInput
+       required
+        style={styles.cinText}
+        placeholder="  C.I.N"
+        keyboardType="phone-pad"
+        onChangeText={text=>handleChange(text,"cin")}
+      />
+      <TextInput
+        style={styles.maxBudgetText}
         placeholder="  Max budget "
         keyboardType="default"
+        onChangeText={text=>handleChange(text,"maxBudget")}
+
       />
       <Image
         style={styles.icons8PhotoGallery1001}
@@ -170,15 +185,16 @@ const StudentRegister = () => {
         onPress={() => navigation.navigate("WelcomeLoginStudent")}
       >
         <Text style={styles.loginText}>login</Text>
-        <Text style={styles.text}>{`  `}</Text>
+        <Text style={styles.text}>{` `}</Text>
       </Pressable>
-      <Text style={styles.haveAnAccount}>{`Have an account ? `}</Text>
+      <Text style={styles.haveAnAccount}>{`Already have an account ? `}</Text>
       <Pressable
         style={styles.rectanglePressable}
-        onPress={() => navigation.navigate("ValidationScrenStudent")}
+        onPress={()=>handleSubmit()}
       />
-      <Text style={styles.registerText}>{`Register `}</Text>
+      <Text style={styles.registerText}>{`Register`}</Text>
     </View>
+    </ScrollView>
   );
 };
 
@@ -207,7 +223,6 @@ const styles = StyleSheet.create({
     left: 106,
     fontSize: 20,
     fontWeight: "700",
-    fontFamily: "Lato",
     color: "#fff",
     textAlign: "left",
   },
@@ -247,6 +262,8 @@ const styles = StyleSheet.create({
     maxWidth: "100%",
     overflow: "hidden",
     maxHeight: "100%",
+    top: "100%",
+
   },
   vectorPressable: {
     position: "absolute",
@@ -259,93 +276,153 @@ const styles = StyleSheet.create({
   },
   rectangleTextInput: {
     position: "absolute",
-    top: 298,
-    left: 35,
+    top: "23%",
+    left: "6%",
     borderRadius: 13,
     backgroundColor: "#d9d9d9",
-    width: 320,
-    height: 50,
+    width: "88%",
+    height:"3.8%",
   },
   rectangleTextInput1: {
     position: "absolute",
-    top: 440,
-    left: 35,
+    top: "32%",
+    left: "6%",
     borderRadius: 13,
     backgroundColor: "#d9d9d9",
-    width: 320,
-    height: 50,
+    width: "88%",
+    height:"3.8%",
   },
   rectangleTextInput2: {
     position: "absolute",
-    top: 369,
-    left: 35,
+    top: "27.5%",
+    left: "6%",
     borderRadius: 13,
     backgroundColor: "#d9d9d9",
-    width: 320,
-    height: 50,
+    width: "88%",
+    height:"3.8%",
   },
   rectangleTextInput3: {
     position: "absolute",
-    top: 511,
-    left: 35,
+    top: "36.5%",
+    left: "6%",
     borderRadius: 13,
     backgroundColor: "#d9d9d9",
-    width: 320,
-    height: 50,
+    width: "88%",
+    height:"3.8%",
   },
-  rectangleRNKDatepicker: {
+  birthDate:{
     position: "absolute",
-    top: 582,
-    left: 35,
-  },
-  dropDownPicker: {
-    backgroundColor: "#d9d9d9",
-  },
-  rectangleView: {
-    position: "absolute",
-    top: 653,
-    left: 37,
+    top: "41%",
+    left: "6%",
     borderRadius: 13,
-    width: 320,
-    height: 50,
-  },
-  dropDownPicker1: {
     backgroundColor: "#d9d9d9",
+    width: "88%",
+    height:"3.8%",
+
   },
-  rectangleView1: {
+  genderText:{
     position: "absolute",
-    top: 722,
-    left: 35,
+    top: "45.5%",
+    left: "6%",
     borderRadius: 13,
-    width: 320,
-    height: 50,
-  },
-  dropDownPicker2: {
     backgroundColor: "#d9d9d9",
+    width: "88%",
+    height:"3.8%",
+
   },
-  rectangleView2: {
+  cityText:{
     position: "absolute",
-    top: 792,
-    left: 35,
+    top: "50%",
+    left: "6%",
     borderRadius: 13,
-    width: 320,
-    height: 50,
-  },
-  dropDownPicker3: {
     backgroundColor: "#d9d9d9",
+    width: "88%",
+    height:"3.8%",
+
   },
-  rectangleView3: {
+  lookingForText:{
     position: "absolute",
-    top: 863,
-    left: 35,
+    top: "54.5%",
+    left: "6%",
     borderRadius: 13,
-    width: 320,
-    height: 50,
+    backgroundColor: "#d9d9d9",
+    width: "88%",
+    height:"3.8%",
+
   },
+  cinText:{
+    position: "absolute",
+    top: "59%",
+    left: "6%",
+    borderRadius: 13,
+    backgroundColor: "#d9d9d9",
+    width: "88%",
+    height:"3.8%",
+
+  },
+  maxBudgetText:{
+    position: "absolute",
+    top: "63.5%",
+    left: "6%",
+    borderRadius: 13,
+    backgroundColor: "#d9d9d9",
+    width: "88%",
+    height:"3.8%",
+
+  },
+  // rectangleRNKDatepicker: {
+  //   position: "absolute",
+  //   top: "41%",
+  //   left: "6%",
+  // },
+  // dropDownPicker: {
+  //   backgroundColor: "#d9d9d9",
+  // },
+  // rectangleView: {
+  //   position: "absolute",
+  //   top: "45.5%",
+  //   left: "6%",
+  //   borderRadius: 13,
+  //   width: 320,
+  //   height: 50,
+  // },
+  // dropDownPicker1: {
+  //   backgroundColor: "#d9d9d9",
+  // },
+  // rectangleView1: {
+  //   position: "absolute",
+  //   top: "50%",
+  //   left: "6%",
+  //   borderRadius: 13,
+  //   width: 320,
+  //   height: 50,
+  // },
+  // dropDownPicker2: {
+  //   backgroundColor: "#d9d9d9",
+  // },
+  // rectangleView2: {
+  //   position: "absolute",
+  //   top: "54.5%",
+  //   left: "6%",
+  //   borderRadius: 13,
+  //   width: 320,
+  //   height: 50,
+  // },
+  // dropDownPicker3: {
+  //   backgroundColor: "#d9d9d9",
+  // },
+  // rectangleView3: {
+  //   position: "absolute",
+  //   top: "59%",
+  //   left: "6%",
+  //   borderRadius: 13,
+  //   width: 320,
+  //   height: 50,
+  // },
   rectangleTextInput4: {
     position: "absolute",
-    top: 932,
-    left: 35,
+    top: "63.5%",
+    left: "6%",
     borderRadius: 13,
     backgroundColor: "#d9d9d9",
     width: 320,
@@ -353,8 +430,8 @@ const styles = StyleSheet.create({
   },
   rectangleTextInput5: {
     position: "absolute",
-    top: 1002,
-    left: 35,
+    top: "68%",
+    left: "6%",
     borderRadius: 13,
     backgroundColor: "#d9d9d9",
     width: 320,
@@ -362,68 +439,66 @@ const styles = StyleSheet.create({
   },
   icons8PhotoGallery1001: {
     position: "absolute",
-    top: 1064,
-    left: 54,
+    top: "73%",
+    left: "12%",
     width: 68,
     height: 89,
   },
   uploadYourPicture: {
     position: "absolute",
-    top: 1093,
-    left: 161,
-    fontSize: 16,
-    fontFamily: "Lato",
+    top: "76%",
+    left: "35%",
+    fontSize: 18,
     color: "#645e5e",
     textAlign: "left",
-    width: 160,
-    height: 40,
+    width: "55%",
+    height: "10%",
     textShadowColor: "rgba(0, 0, 0, 0.25)",
     textShadowOffset: {
       width: 0,
       height: 4,
     },
-    textShadowRadius: 4,
+    textShadowRadius: 5,
   },
   loginText: {
-    color: "#fff",
+    color: "#000",
+    height: "20.2%",
+
   },
   text: {
     color: "#000",
   },
   loginPressable: {
     position: "absolute",
-    top: 1216,
-    left: 218,
-    fontSize: 14,
-    fontFamily: "Lato",
+    top: "88%",
+    left: "76%",
+    fontSize: 16,
     textAlign: "left",
-    width: 31,
-    height: 18,
+    width: "10.76%",
+    height: "7.2%",
   },
   haveAnAccount: {
     position: "absolute",
-    top: 1216,
-    left: 89,
-    fontSize: 14,
-    fontFamily: "Lato",
+    top: "88%",
+    left: "15%",
+    fontSize: 16,
     color: "#000",
     textAlign: "left",
   },
   rectanglePressable: {
     position: "absolute",
-    top: 1152,
-    left: 35,
+    top: "80.93%",
+    left: "15%",
     borderRadius: 13,
     backgroundColor: "#3f424a",
-    width: 320,
-    height: 50,
+    width: "70%",
+    height: "4%",
   },
   registerText: {
     position: "absolute",
-    top: 1162,
-    left: 153,
+    top: "81.50%",
+    left: "38%",
     fontSize: 20,
-    fontFamily: "Lato",
     color: "#fff",
     textAlign: "left",
     width: 152,
