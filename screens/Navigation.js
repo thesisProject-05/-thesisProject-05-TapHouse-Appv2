@@ -11,6 +11,14 @@ import StudentRegister from "./students/RegisterPageVariant2";
 import Profile from "./Profile";
 import HomePageStudent from "./HomePage";
 import Intro from "./Intro";
+import House from "./addHouse/House";
+import GetLocation from './GetLocation'
+
+
+
+
+
+
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { IconRegistry, ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
@@ -122,6 +130,16 @@ const App = () => {
                 component={Detail}
                 options={{ headerShown: false }}
               />
+              <Stack.Screen
+              name="House"
+              component={House}
+              options={{ headerShown: false }}
+            />
+              <Stack.Screen
+              name="GetLocation"
+              component={GetLocation}
+              options={{ headerShown: false }}
+            />
 
               {/* <Stack.Screen
                 name="HouseOwnerRegister1"

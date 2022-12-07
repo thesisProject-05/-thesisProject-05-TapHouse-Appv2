@@ -15,9 +15,11 @@ import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword.js";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Datepicker as RNKDatepicker } from "@ui-kitten/components";
 import { Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 import link from "../../../Link.js";
 
-const HouseOwnerRegister = ({ navigation }) => {
+const HouseOwnerRegister = (props,{cb1}) => {
+  const navigation = useNavigation();
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
   const [data, setData] = useState({
@@ -35,25 +37,24 @@ const HouseOwnerRegister = ({ navigation }) => {
     setData({
       ...data,
       [name]: value,
-    });
+    })
+    props.cb(data.email)
   };
   const handleSubmit = () => {
     axios
       .post(`${link}/owner/register`, data)
       .then((response) => {
-        // setData(response.data);
         console.log(response.data.insertId, "=====id");
         navigation.navigate("ValidationScrenHomeOwner", {
-          id: response.data.insertId,
+          id: response.data.insertId
         });
-        // console.log(response,"=>respone");
         console.log(response.data, "the data received");
       })
       .catch((error) => {
         console.log(error.message);
       });
   };
-
+// console.log(props.cb1);
   return (
     <ScrollView>
       <View style={styles.houseOwnerRegisterView}>
@@ -83,7 +84,7 @@ const HouseOwnerRegister = ({ navigation }) => {
           placeholder="  Password"
           autoCapitalize="none"
           keyboardType="default"
-          minLength={8}
+          // minLength={8}
           enablesReturnKeyAutomatically={true}
           autoCorrect={false}
           secureTextEntry={passwordVisibility}

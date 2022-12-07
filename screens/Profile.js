@@ -1,8 +1,14 @@
 import * as React from "react";
 import { Image, StyleSheet, Text, View, ScrollView } from "react-native";
+import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import axios from "axios"
+import link from "../Link";
+import { useNavigation } from "@react-navigation/native";
 
 
 const Profile = () => {
+  const navigation = useNavigation();
+
   return (
     <ScrollView>
       <View style={styles.profilContainer}>
@@ -13,6 +19,12 @@ const Profile = () => {
             resizeMode="cover"
             source={require("../assets/Profile/undrawMale.png")}
           />
+          <Pressable
+          onPress={()=>navigation.navigate('House')}>
+            <Image 
+            style={{top:35,left:300}}
+            source={require('../assets/Profile/icons.png')}/>
+          </Pressable>
         </View>
         <View style={styles.lineView} />
 
@@ -58,7 +70,22 @@ const Profile = () => {
           resizeMode="cover"
           source={require("../assets/Profile/instagram1.png")}
         />
+        <Pressable
+         onPress={() =>
+          axios
+            .post(`${link}/owner/logout`)
+            .then((res) => {
+              console.log(res.data);
+              navigation.navigate("Intro");
+            })
+            .catch((err) => console.log(err))
+        }>
+          <Image
+          style={styles.logoutIcon}
+          source={require('../assets/Profile/logout8.png')}/>
+        </Pressable>
       </View>
+      
     </ScrollView>
   );
 };
@@ -256,6 +283,14 @@ const styles = StyleSheet.create({
     left: "7%",
     width: "20%",
     height: "10%",
+    borderRadius: 10,
+  },
+  logoutIcon: {
+    position: "relative",
+    bottom:168,
+    left: 250,
+    width: 80,
+    height: 80,
     borderRadius: 10,
   },
 });
