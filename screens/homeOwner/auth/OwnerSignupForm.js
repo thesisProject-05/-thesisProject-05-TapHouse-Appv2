@@ -18,7 +18,7 @@ import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import link from "../../../Link.js";
 
-const HouseOwnerRegister = (props) => {
+const HouseOwnerRegister = (props,{cb1}) => {
   const navigation = useNavigation();
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
@@ -54,7 +54,7 @@ const HouseOwnerRegister = (props) => {
         console.log(error.message);
       });
   };
-
+// console.log(props.cb1);
   return (
     <ScrollView>
       <View style={styles.houseOwnerRegisterView}>

@@ -9,11 +9,11 @@ import {
 } from 'react-native-confirmation-code-field';
 import axios from 'axios';
 import link from "../../../Link.js";
-import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
 
 
  const CELL_SIZE = 30;
- const CELL_BORDER_RADIUS = 8;
+ const CELL_BORDER_RADIUS = 6;
  const DEFAULT_CELL_BG_COLOR = '#fff';
  const NOT_EMPTY_CELL_BG_COLOR = '#3CB371';
  const ACTIVE_CELL_BG_COLOR = '#f7fafe';
@@ -40,16 +40,16 @@ const animateCell = ({hasValue, index, isFocused}) => {
   ]).start();
 };
 
-const ValidationScrenHomeOwner = ({cb}) => {
-  const navigation = useNavigation();
+const ValidationScrenHomeOwner = (props,{ route, navigation,cb }) => {
+  // const navigation = useNavigation();
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
-  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+  const [ aymen, getCellOnLayoutHandler] = useClearByFocusCell({
     ...value,
     setValue,
   });
   const [em,setEm]=useState(cb)
-
+  var {id} = route.params
 
   const renderCell = ({index, symbol, isFocused}) => {
     const hasValue = Boolean(symbol);
@@ -77,8 +77,6 @@ const ValidationScrenHomeOwner = ({cb}) => {
       ],
     };
 
-    // Run animation on next event loop tik
-    // Because we need first return new style prop and then animate this value
     setTimeout(() => {
       animateCell({hasValue, index, isFocused});
     }, 0);
@@ -92,6 +90,7 @@ const ValidationScrenHomeOwner = ({cb}) => {
       </AnimatedText>
     );
   };
+  console.log(id,"<====id");
 
   return (
     <SafeAreaView style={styles.root}>
@@ -109,7 +108,7 @@ const ValidationScrenHomeOwner = ({cb}) => {
          </View> }
       <CodeField
         ref={ref}
-        {...props}
+        {...aymen}
         value={value}
         onChangeText={setValue}
         cellCount={CELL_COUNT}
@@ -119,7 +118,7 @@ const ValidationScrenHomeOwner = ({cb}) => {
       />
       <TouchableOpacity style={styles.nextButton} onPress={()=>{
         axios
-        .post(`${link}/owner/check`, {activationCode:value,email:em})
+        .post(`${link}/owner/check`, {activationCode:value,email:em, id: id})
         .then(resp=>{console.log(resp);
           navigation.navigate("WelcomeLoginHouseOwner")}
         
@@ -151,7 +150,6 @@ const styles = StyleSheet.create({
     color: '#3759b8',
     backgroundColor: '#fff',
 
-    // IOS
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -160,7 +158,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
 
-    // Android
+
     elevation: 3,
   },
   inputView: {
@@ -177,7 +175,7 @@ const styles = StyleSheet.create({
     height: 50,
     color: "black"
   },
-  // =======================
+
 
   root: {
     minHeight: '100%',

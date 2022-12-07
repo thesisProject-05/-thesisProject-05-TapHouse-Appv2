@@ -8,16 +8,26 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import link from ".././Link.js";
+import axios from "axios";
 
 const HomePageOwner = () => {
   const navigation = useNavigation();
-
+console.log(id);
   return (
     <ScrollView>
       <View style={styles.HomePageOwner}>
         <Pressable
           style={styles.ellipsePressable}
-          onPress={() => navigation.navigate("ProfileOwner")}
+          onPress={() => 
+            axios
+            .post(`${link}/owner/logout`)
+            .then((res)=>{
+              console.log(res.data);
+              navigation.navigate("Intro")}
+               )
+            .catch(err=>console.log(err))
+          }
         >
           <Image
             style={styles.icon}

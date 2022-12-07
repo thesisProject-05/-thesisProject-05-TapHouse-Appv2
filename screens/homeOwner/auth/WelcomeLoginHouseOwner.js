@@ -4,11 +4,13 @@ Pressable,TouchableHighlight,View,} from "react-native";
 import { TextInput as RNPTextInput } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from "@react-navigation/native";
 import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword.js";
 import axios from "axios";
 import link from "../../../Link.js";
 
-const WelcomeLoginHouseOwner = ({ navigation}) => {
+const WelcomeLoginHouseOwner = ({cb1}) => {
+  const navigation = useNavigation();
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
   const [onLogin, setOnLogin] = useState({
@@ -33,7 +35,7 @@ const WelcomeLoginHouseOwner = ({ navigation}) => {
       })
       .catch((error)=> console.log(error.message))
   };
-
+// console.log(cb1);
   return (
     <View style={styles.welcomeLoginHouseOwner}>
       <Text style={styles.welcomeBackText1}>
