@@ -2,7 +2,7 @@ import * as React from "react";
 import { Image, StyleSheet, Text, View, ScrollView } from "react-native";
 
 
-const Profile = () => {
+const ProfileStudent = () => {
   return (
     <ScrollView>
       <View style={styles.profilContainer}>
@@ -259,4 +259,4 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
-export default Profile;
+export default ProfileStudent;

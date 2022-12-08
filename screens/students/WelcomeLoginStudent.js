@@ -6,6 +6,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTogglePasswordVisibility } from "../.././hooks/TogglePassword.js";
 import axios from "axios";
 import link from "../.././Link.js";
+import { log } from "react-native-reanimated";
 
 const WelcomeLoginStudent = ({ navigation}) => {
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
@@ -32,6 +33,7 @@ const WelcomeLoginStudent = ({ navigation}) => {
         })
         .catch((error)=> console.log(error.message))
     };
+    console.log(props.cb1,"adhem")
   return (
 
     <View style={styles.welcomeLoginStudent}>
@@ -75,6 +77,8 @@ const WelcomeLoginStudent = ({ navigation}) => {
         placeholder="Enter Your Email"
         mode="outlined"
         keyboardType="default"
+        autoCorrect={false}
+        autoCapitalize="none"
         theme={{ colors: { background: "#d9d9d9" } }}
         onChangeText={(text) => handleChange(text, "email")}
       />

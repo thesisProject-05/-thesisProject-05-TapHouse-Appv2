@@ -3,12 +3,14 @@ import {Text,StyleSheet,TouchableOpacity,Image, ScrollView,
 Pressable,TouchableHighlight,View,} from "react-native";
 import { TextInput as RNPTextInput } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from "@react-navigation/native";
 import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword.js";
 import axios from "axios";
 import link from "../../../Link.js";
 
-const WelcomeLoginHouseOwner = ({ navigation}) => {
+const WelcomeLoginHouseOwner = (props) => {
+  const navigation = useNavigation();
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
   const [onLogin, setOnLogin] = useState({
@@ -27,13 +29,16 @@ const WelcomeLoginHouseOwner = ({ navigation}) => {
     axios
       .post(`${link}/owner/login`, onLogin)
       .then((response) => {
+        alert("hay winek hay")
         console.log(onLogin);
         setOnLogin(response.data)
-        navigation.navigate("HomePageStudent")
+        navigation.navigate("HomePageOwner")
       })
-      .catch((error)=> console.log(error.message))
+      .catch((error)=> {console.log(error.message);
+        alert("thabet rou7ek")
+      })
   };
-
+  console.log(props.cb1,"<====id from signIn");
   return (
     <View style={styles.welcomeLoginHouseOwner}>
       <Text style={styles.welcomeBackText1}>
@@ -79,6 +84,7 @@ const WelcomeLoginHouseOwner = ({ navigation}) => {
         minLength={8}
         enablesReturnKeyAutomatically={true}
         autoCorrect={false}
+        autoCapitalize="none"
         secureTextEntry={passwordVisibility}
         theme={{ colors: { background: "#d9d9d9" } }}
         onChangeText={(text) => handleChange(text, "password")}
@@ -95,6 +101,7 @@ const WelcomeLoginHouseOwner = ({ navigation}) => {
         style={styles.rectangleRNPTextInput1}
         placeholder="Enter Your Email"
         mode="outlined"
+        autoCapitalize="none"
         keyboardType="default"
         theme={{ colors: { background: "#d9d9d9" } }}
         onChangeText={(text) => handleChange(text, "email")}

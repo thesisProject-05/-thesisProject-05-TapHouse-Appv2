@@ -23,7 +23,7 @@ const Intro = () => {
       <Image
         style={styles.icon2}
         resizeMode="cover"
-        source={require("../assets/intro/Group8.png")}
+        source={require("../assets/intro/group8.png")}
       />
       </Pressable>
       <Text style={styles.studentText}>student</Text>
@@ -78,11 +78,16 @@ const styles = StyleSheet.create({
   },
   groupPressable: {
     position: "absolute",
-    top: 480,
-    left: 223,
-    width: 221,
-    height: 136,
+    left: "8.62%",
+    top: "56.31%",
+    right: "57.18%",
+    bottom: "27.62%",
+    width: "38.21%",
+    height: "16.07%",
+    backgroundColor:"red",
+
   },
+ 
   groupPressable1: {
     position: "absolute",
     left: "8.62%",
@@ -91,16 +96,19 @@ const styles = StyleSheet.create({
     bottom: "27.62%",
     width: "38.21%",
     height: "16.07%",
+    
+    
   },
   
   studentText: {
     position: "absolute",
-    top: 630,
+    top: 670,
     left: 39,
     fontSize: 16,
     letterSpacing: -0.41,
     lineHeight: 22,
     fontWeight: "600",
+   
     color: "#636363",
     textAlign: "center",
     display: "flex",
@@ -111,7 +119,7 @@ const styles = StyleSheet.create({
   },
   houseOwnerText: {
     position: "absolute",
-    top: 632,
+    top: 670,
     left: 234,
     fontSize: 16,
     letterSpacing: -0.41,
@@ -126,6 +134,7 @@ const styles = StyleSheet.create({
     height: 25,
   },
   icon: {
+    top:30,
     height: "100%",
     width: "100%",
     maxWidth: "100%",
@@ -163,7 +172,7 @@ const styles = StyleSheet.create({
   },
   helloThisOurFirstApplicati: {
     position: "absolute",
-    top: 200,
+    top: 294,
     left: 58,
     fontSize: 10,
     letterSpacing: -0.41,
@@ -174,26 +183,38 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     width: 264,
-    height: 77,
+    height: 99,
   },
   aaa1Icon: {
     position: "absolute",
-    top: 42,
+    top: 80,
     left: 113,
     width: 159,
     height: 140,
   },
   icon1: {
+    position:"absolute",
     height: "100%",
     width: "100%",
     maxWidth: "100%",
     overflow: "hidden",
     maxHeight: "100%",
   },
+  icon3: {
+    top:-34,
+    right:-169,
+    position:"absolute",
+    height: "120%",
+    width: "120%",
+    maxWidth: "80%",
+    overflow: "hidden",
+    maxHeight: "100%",
+    
+  },
   introPressable: {
     position: "relative",
     borderRadius: 50,
-    backgroundColor: "#fff",
+    backgroundColor: "#DFE8EA",
     flex: 1,
     width: "100%",
     height: 852,

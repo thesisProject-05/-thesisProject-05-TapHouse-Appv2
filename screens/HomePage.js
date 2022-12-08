@@ -8,16 +8,26 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import link from "../Link.js";
+import axios from "axios";
 
-const HomePageStudent = () => {
+const HomePageOwner = () => {
   const navigation = useNavigation();
 
   return (
     <ScrollView>
-      <View style={styles.homePageStudent}>
+      <View style={styles.HomePageOwner}>
         <Pressable
           style={styles.ellipsePressable}
-          onPress={() => navigation.navigate("Profile")}
+          onPress={() =>
+            axios
+              .post(`${link}/owner/logout`)
+              .then((res) => {
+                console.log(res.data);
+                navigation.navigate("Intro");
+              })
+              .catch((err) => console.log(err))
+          }
         >
           <Image
             style={styles.icon}
@@ -25,25 +35,25 @@ const HomePageStudent = () => {
             source={require("../assets/HomeScreen/ellipse17.png")}
           />
         </Pressable>
-       <View>
-        <Image
-        style={styles.iconsaxLinearhome}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/iconsHome.png")}
-      />
-      <Image
-        style={styles.iconsaxLinearmessage}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/iconsMessage.png")}
-      />
-      <Image
-        style={styles.iconsaxLinearblogger}
-        resizeMode="cover"  
-        source={require("../assets/HomeScreen/iconsBlog.png")}
-      />
-      </View>
-       
-      <View style={styles.lineView} />
+        <View>
+          <Image
+            style={styles.iconsaxLinearhome}
+            resizeMode="cover"
+            source={require("../assets/HomeScreen/iconsHome.png")}
+          />
+          <Image
+            style={styles.iconsaxLinearmessage}
+            resizeMode="cover"
+            source={require("../assets/HomeScreen/iconsMessage.png")}
+          />
+          <Image
+            style={styles.iconsaxLinearblogger}
+            resizeMode="cover"
+            source={require("../assets/HomeScreen/iconsBlog.png")}
+          />
+        </View>
+
+        <View style={styles.lineView} />
         <View style={styles.rectangleView} />
         <Image
           style={styles.images1Icon}
@@ -52,8 +62,6 @@ const HomePageStudent = () => {
         />
         <Text style={styles.singleRoomText}>single room</Text>
         <Text style={styles.tNDText}>100 TND</Text>
-
-      
       </View>
     </ScrollView>
   );
@@ -141,9 +149,8 @@ const styles = StyleSheet.create({
     width: 145,
     height: 130,
   },
- 
 
-  homePageStudent: {
+  HomePageOwner: {
     position: "relative",
     backgroundColor: "#e3f1f4",
     flex: 1,
@@ -153,4 +160,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomePageStudent;
+export default HomePageOwner;
