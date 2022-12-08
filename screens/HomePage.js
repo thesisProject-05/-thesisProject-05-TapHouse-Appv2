@@ -8,25 +8,25 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import link from ".././Link.js";
+import link from "../Link.js";
 import axios from "axios";
 
 const HomePageOwner = () => {
   const navigation = useNavigation();
-console.log(id);
+
   return (
     <ScrollView>
       <View style={styles.HomePageOwner}>
         <Pressable
           style={styles.ellipsePressable}
-          onPress={() => 
+          onPress={() =>
             axios
-            .post(`${link}/owner/logout`)
-            .then((res)=>{
-              console.log(res.data);
-              navigation.navigate("Intro")}
-               )
-            .catch(err=>console.log(err))
+              .post(`${link}/owner/logout`)
+              .then((res) => {
+                console.log(res.data);
+                navigation.navigate("Intro");
+              })
+              .catch((err) => console.log(err))
           }
         >
           <Image
@@ -35,25 +35,25 @@ console.log(id);
             source={require("../assets/HomeScreen/ellipse17.png")}
           />
         </Pressable>
-       <View>
-        <Image
-        style={styles.iconsaxLinearhome}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/iconsHome.png")}
-      />
-      <Image
-        style={styles.iconsaxLinearmessage}
-        resizeMode="cover"
-        source={require("../assets/HomeScreen/iconsMessage.png")}
-      />
-      <Image
-        style={styles.iconsaxLinearblogger}
-        resizeMode="cover"  
-        source={require("../assets/HomeScreen/iconsBlog.png")}
-      />
-      </View>
-       
-      <View style={styles.lineView} />
+        <View>
+          <Image
+            style={styles.iconsaxLinearhome}
+            resizeMode="cover"
+            source={require("../assets/HomeScreen/iconsHome.png")}
+          />
+          <Image
+            style={styles.iconsaxLinearmessage}
+            resizeMode="cover"
+            source={require("../assets/HomeScreen/iconsMessage.png")}
+          />
+          <Image
+            style={styles.iconsaxLinearblogger}
+            resizeMode="cover"
+            source={require("../assets/HomeScreen/iconsBlog.png")}
+          />
+        </View>
+
+        <View style={styles.lineView} />
         <View style={styles.rectangleView} />
         <Image
           style={styles.images1Icon}
@@ -62,8 +62,6 @@ console.log(id);
         />
         <Text style={styles.singleRoomText}>single room</Text>
         <Text style={styles.tNDText}>100 TND</Text>
-
-      
       </View>
     </ScrollView>
   );
@@ -151,7 +149,6 @@ const styles = StyleSheet.create({
     width: 145,
     height: 130,
   },
- 
 
   HomePageOwner: {
     position: "relative",

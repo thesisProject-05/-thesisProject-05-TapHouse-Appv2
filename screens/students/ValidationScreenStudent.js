@@ -9,11 +9,11 @@ import {
 } from 'react-native-confirmation-code-field';
 import axios from 'axios';
 import link from "../.././Link.js";
-import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
 
 
  const CELL_SIZE = 30;
- const CELL_BORDER_RADIUS = 8;
+ const CELL_BORDER_RADIUS = 6;
  const DEFAULT_CELL_BG_COLOR = '#fff';
  const NOT_EMPTY_CELL_BG_COLOR = '#3CB371';
  const ACTIVE_CELL_BG_COLOR = '#f7fafe';
@@ -40,16 +40,16 @@ const animateCell = ({hasValue, index, isFocused}) => {
   ]).start();
 };
 
-const ValidationScrenStudent = ({cb}) => {
-  const navigation = useNavigation();
+const ValidationScrenStudent = (props,{ route, navigation,cb }) => {
+  // const navigation = useNavigation();
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
-  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+  const [ aymen, getCellOnLayoutHandler] = useClearByFocusCell({
     ...value,
     setValue,
   });
   const [em,setEm]=useState(cb)
-
+  var {id} = route.params
 
   const renderCell = ({index, symbol, isFocused}) => {
     const hasValue = Boolean(symbol);
@@ -90,11 +90,12 @@ const ValidationScrenStudent = ({cb}) => {
       </AnimatedText>
     );
   };
+  console.log(id,"<====id");
 
   return (
     <SafeAreaView style={styles.root}>
       <Text style={styles.title}>Verification</Text>
-      <Image style={styles.icon} source={require("../.././assets/ValidationScreen2/group9.png")} />
+      <Image style={styles.icon} source={require("../.././assets/ValidationScreen/undrawCertification.png")} />
       <Text style={styles.subTitle}>
         {cb.length? null : "Please enter the verification code we send to your email address:`Please enter your mail  and the verification code we send to your email address`"}
       </Text>
@@ -107,7 +108,7 @@ const ValidationScrenStudent = ({cb}) => {
          </View> }
       <CodeField
         ref={ref}
-        {...props}
+        {...aymen}
         value={value}
         onChangeText={setValue}
         cellCount={CELL_COUNT}
@@ -149,7 +150,6 @@ const styles = StyleSheet.create({
     color: '#3759b8',
     backgroundColor: '#fff',
 
-    // IOS
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
 
-    // Android
+
     elevation: 3,
   },
   inputView: {
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     height: 50,
     color: "black"
   },
-  // =======================
+
 
   root: {
     minHeight: '100%',

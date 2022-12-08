@@ -9,7 +9,7 @@ import WelcomeLoginStudent from "./students/WelcomeLoginStudent";
 import ValidationScrenStudent from "./students/ValidationScreenStudent";
 import StudentRegister from "./students/RegisterPageVariant2";
 import HomePageStudent from "./HomePageStudent";
-import HomePageOwner from "./HomePageOwner";
+import HomePageOwner from "./HomePage";
 import Intro from "./Intro";
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { IconRegistry, ApplicationProvider } from "@ui-kitten/components";
@@ -26,7 +26,7 @@ import ProfileStudent from "./ProfileStudent";
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
   const [email, setEmail] = useState("");
-  const [id,setId] = useState(" ");
+  const [id, setId] = useState("");
   const [mail, setMail] = useState("");
   function MaterialIcon({ name, style }) {
     const { height, tintColor, ...iconStyle } = StyleSheet.flatten(style);
@@ -82,9 +82,8 @@ const App = () => {
               />
               <Stack.Screen
                 name="WelcomeLoginHouseOwner"
-              
                 options={{ headerShown: false }}
-                children={()=><WelcomeLoginHouseOwner cb1={id} />}
+                children={() => <WelcomeLoginHouseOwner cb1={id} />}
               />
               <Stack.Screen
                 name="HouseOwnerRegister"
@@ -94,7 +93,7 @@ const App = () => {
               <Stack.Screen
                 name="ValidationScrenHomeOwner"
                 options={{ headerShown: false }}
-                children={() => <ValidationScrenHomeOwner cb={mail}  />}
+                children={() => <ValidationScrenHomeOwner cb={mail} cb1= {id} />}
               />
 
               <Stack.Screen
@@ -134,17 +133,17 @@ const App = () => {
                 component={House}
                 options={{ headerShown: false }}
               />
-               <Stack.Screen
+              <Stack.Screen
                 name="Detail"
                 component={Detail}
                 options={{ headerShown: false }}
               />
-                <Stack.Screen
+              <Stack.Screen
                 name="ProfileOwner"
                 component={ProfileOwner}
                 options={{ headerShown: false }}
               />
-                <Stack.Screen
+              <Stack.Screen
                 name="ProfileStudent"
                 component={ProfileStudent}
                 options={{ headerShown: false }}
@@ -254,7 +253,7 @@ const App = () => {
                 component={IPhone141}
                 options={{ headerShown: false }}
               />*/}
-            </Stack.Navigator> 
+            </Stack.Navigator>
           ) : null}
         </NavigationContainer>
       </ApplicationProvider>
